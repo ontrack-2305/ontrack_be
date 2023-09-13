@@ -185,6 +185,12 @@
           null,
           null,
           null,
+          1,
+          null,
+          1,
+          1,
+          null,
+          null,
           null,
           null
         ]
@@ -199,6 +205,36 @@
           12,
           null,
           null,
+          null
+        ]
+      },
+      "/Users/annawiley/turing_work/3mod/projects/ontrack/ontrack_be/spec/models/task_spec.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          1,
+          2,
+          2,
+          2,
+          null,
+          null
+        ]
+      },
+      "/Users/annawiley/turing_work/3mod/projects/ontrack/ontrack_be/app/models/task.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          1,
+          null
+        ]
+      },
+      "/Users/annawiley/turing_work/3mod/projects/ontrack/ontrack_be/app/models/application_record.rb": {
+        "lines": [
+          1,
+          1,
           null
         ]
       },
@@ -275,6 +311,6 @@
         ]
       }
     },
-    "timestamp": 1694613381
+    "timestamp": 1694632031
   }
 }
