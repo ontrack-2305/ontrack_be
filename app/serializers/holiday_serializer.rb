@@ -1,0 +1,3 @@
+class HolidaySerializer
+  
+end
