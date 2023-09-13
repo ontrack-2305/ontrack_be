@@ -7,8 +7,8 @@ Rails.application.routes.draw do
   root "welcome#index"
 
   namespace :api do
-    namespace :v0 do
-      
+    namespace :v1 do
+      resources :tasks
     end
   end
 end
