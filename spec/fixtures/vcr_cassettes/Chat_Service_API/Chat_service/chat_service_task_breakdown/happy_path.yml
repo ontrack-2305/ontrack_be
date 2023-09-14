@@ -1,0 +1,99 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.openai.com/v1/chat/completions
+    body:
+      encoding: UTF-8
+      string: '{"model":"gpt-3.5-turbo","max_tokens":100,"messages":[{"role":"system","content":"You
+        are a helpful assistant."},{"role":"user","content":"Please break down the
+        following task into easier to complete components: Do my laundry. \n                    Ensure
+        you complete the task breakdown in 100 tokens or less. \n                    Don''t
+        display the amount of tokens used.\n                    Try to complete each
+        task breakdown in five steps or less.\n                    Be brief, but comprehensive."}]}'
+    headers:
+      Authorization:
+      - Bearer ai_key
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v2.7.11
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 14 Sep 2023 05:57:48 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Origin:
+      - "*"
+      Cache-Control:
+      - no-cache, must-revalidate
+      Openai-Model:
+      - gpt-3.5-turbo-0613
+      Openai-Organization:
+      - user-jofcuhhpybxdeoxnabokahf8
+      Openai-Processing-Ms:
+      - '3297'
+      Openai-Version:
+      - '2020-10-01'
+      Strict-Transport-Security:
+      - max-age=15724800; includeSubDomains
+      X-Ratelimit-Limit-Requests:
+      - '3500'
+      X-Ratelimit-Limit-Tokens:
+      - '90000'
+      X-Ratelimit-Remaining-Requests:
+      - '3499'
+      X-Ratelimit-Remaining-Tokens:
+      - '89800'
+      X-Ratelimit-Reset-Requests:
+      - 17ms
+      X-Ratelimit-Reset-Tokens:
+      - 132ms
+      X-Request-Id:
+      - '0832187994c15b2ca78d3ca1ef62d021'
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 806664eefbecfa7a-SJC
+      Alt-Svc:
+      - h3=":443"; ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+          "id": "chatcmpl-7yZeDwdxCQdsFin96o7pC04tq2dJS",
+          "object": "chat.completion",
+          "created": 1694671065,
+          "model": "gpt-3.5-turbo-0613",
+          "choices": [
+            {
+              "index": 0,
+              "message": {
+                "role": "assistant",
+                "content": "1. Sort laundry into different piles (whites, darks, colors).\n2. Check care labels on each item to determine proper washing instructions.\n3. Load the washing machine with one pile of laundry at a time.\n4. Add detergent and set the appropriate wash cycle.\n5. Transfer the cleaned laundry to the dryer or hang them to air dry."
+              },
+              "finish_reason": "stop"
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 79,
+            "completion_tokens": 72,
+            "total_tokens": 151
+          }
+        }
+  recorded_at: Thu, 14 Sep 2023 05:57:48 GMT
+recorded_with: VCR 6.2.0

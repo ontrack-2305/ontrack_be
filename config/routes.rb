@@ -4,8 +4,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
-  root "welcome#index"
-
+  get '/api/v1/chat_service', to: 'api/v1/breakdowns#show'
   get 'api/v1/holidays', to: "api/v1/holidays#index"
 
 end
