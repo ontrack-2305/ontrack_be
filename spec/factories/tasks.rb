@@ -3,7 +3,7 @@ FactoryBot.define do
     name { "#{Faker::Verb.base} #{Faker::House.room}" }
     category { Task.categories.keys.sample } # Assume Task model has an enum named 'categories'
     mandatory { Faker::Boolean.boolean }
-    event_date { Faker::Time.forward(days: 30, period: :morning) }
+    event_date { Faker::Time.forward(days: 30) }
     frequency { Task.frequencies.keys.sample } # Assume Task model has an enum named 'frequencies'
     time_needed { Faker::Number.number(digits: 2) }
     user_id { Faker::Number.number(digits: 3) }
@@ -52,7 +52,7 @@ end
 #       name { "#{Faker::Verb.base} #{Faker::House.room}" }
 #       category { Task.categories.keys.sample }
 #       mandatory { {Faker::Boolean.boolean} }
-#       event_date { {Faker::Address.city} }
+#       event_date { Faker::Time.forward(days: 30, period: :morning) }
 #       frequency { Task.frequencies.keys.sample }
 #       time_needed { Faker::Number.number(digits: 2) }
 #       user_id { Faker::Number.number(digits: 3) }
