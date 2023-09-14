@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   get '/api/v1/chat_service', to: 'api/v1/breakdowns#show'
+  get 'api/v1/holidays', to: "api/v1/holidays#index"
 
 end
