@@ -9,7 +9,7 @@ RSpec.describe Task, type: :model do
   end
 
   describe "Enum Definitions" do
-    it { should define_enum_for(:category).with([:rest, :hobby, :chore]) }
-    it { should define_enum_for(:frequency).with([:one_time, :daily, :weekly, :monthly, :annual]) }
+    it { should define_enum_for(:category).with_values([:rest, :hobby, :chore]) }
+    it { should define_enum_for(:frequency).with_values([:one_time, :daily, :weekly, :monthly, :annual]) }
   end
 end
