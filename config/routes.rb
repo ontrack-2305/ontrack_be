@@ -5,9 +5,6 @@ Rails.application.routes.draw do
   # root "articles#index"
   root "welcome#index"
 
-  namespace :api do
-    namespace :v0 do
-      
-    end
-  end
+
+  get '/api/v1/chat_service', to: 'api/v1/breakdowns#show'
 end
