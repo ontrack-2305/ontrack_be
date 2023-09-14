@@ -2,7 +2,7 @@ class CreateTasks < ActiveRecord::Migration[7.0]
   def change
     create_table :tasks do |t|
       t.string :name
-      t.integer :type
+      t.integer :category
       t.boolean :mandatory
       t.datetime :event_date
       t.integer :frequency, default: 0

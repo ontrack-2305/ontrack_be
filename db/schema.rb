@@ -16,7 +16,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_13_161805) do
 
   create_table "tasks", force: :cascade do |t|
     t.string "name"
-    t.integer "type"
+    t.integer "category"
     t.boolean "mandatory"
     t.datetime "event_date"
     t.integer "frequency", default: 0
