@@ -1,10 +1,6 @@
 class AiService
   def get_url(url, payload = nil)
-    if payload
-      response = conn.post(url, payload)
-    else
-      response = conn.get(url)
-    end
+    response = conn.post(url, payload)
     JSON.parse(response.body, symbolize_names: true)
   end
 
