@@ -6,9 +6,16 @@ Rails.application.routes.draw do
 
   root "welcome#index"
 
+  get 'api/v1/users/:id/tasks', to: 'tasks#index'
+  get 'api/v1/users/:id/tasks/:task_id', to: 'tasks#show'
+
   namespace :api do
     namespace :v1 do
-      resources :tasks
-    end
+      # namespace :users do
+      #   namespace :id do
+          resources :tasks
+        end
+    #   end
+    # end
   end
 end

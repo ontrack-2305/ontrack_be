@@ -1,6 +1,5 @@
 class Api::V1::TasksController < ApplicationController
   def create
-    # require 'pry'; binding.pry
     render json: TaskSerializer.new(Task.create!(task_params)), status: 201
   end
 
@@ -10,6 +9,10 @@ class Api::V1::TasksController < ApplicationController
 
   def show
     render json: TaskSerializer.new(Task.find(params[:id]))
+  end
+
+  def edit
+    task = Task.find(params[:id])
   end
 
   def update
