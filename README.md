@@ -14,7 +14,7 @@ This is an SOA app and needs both this repo (back end) AND [![GitHub](https://im
 ### Mod 3 Group Consultancy Project
 OnTrack is a .... Designed for ...... OnTrack has the ability for registered users to ..... 
                                                   <br><br>
-                    <img src="LOGO GOES HERE" width="600" height="400">
+                    <img src="assets/images/791227AB-0F84-42C9-9EE3-0BA462397545.png" width="300" height="300">
                     
 ## Purpose
 
@@ -139,11 +139,38 @@ Task Response
           "text": ""1. Research catio designs and gather inspiration.\n2. Create a detailed plan and layout for the catio.\n3. Purchase necessary materials and tools.\n4. Build the frame and structure of the catio.\n5. Install fencing, shelves, and perches inside the catio."
       }
    ]
+
+  Holiday Response
+  {
+ "data": [
+        {
+            "type": "holiday",
+            "attributes": {
+                "name": "Columbus Day",
+                "date": "2023-10-09"
+            }
+        },
+        {
+            "type": "holiday",
+            "attributes": {
+                "name": "Veterans Day",
+                "date": "2023-11-10"
+            }
+        },
+        {
+            "type": "holiday",
+            "attributes": {
+                "name": "Thanksgiving Day",
+                "date": "2023-11-23"
+            }
+        }
+    ]
+}
 ```
 
 ## Schema
 ```
-  create_table 'tools', force: :cascade do |t|
+  create_table 'tasks', force: :cascade do |t|
     t.string 'name'
     t.integer 'type'
     t.boolean 'mandatory, default: false'
@@ -151,7 +178,6 @@ Task Response
     t.integer 'frequency'
     t.integer 'time_needed'
     t.string 'notes'
-    t.integer prerequisite', task_id, foreign_key: true
     t.integer 'user_id'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
@@ -161,7 +187,15 @@ Task Response
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 ## Thoughts for future contributions:
-ADD MIRO BOARD STICKY NOTES HERE
+- Upcoming birthday notifications
+- Screen reader friendly
+- Choose which holidays a user can be reminded about
+- Choose different country holidays
+- Link holidays and events to people: "Mother's Day, send Mom something
+- Language translation
+- Attach photos such as grocery lists
+- Standalone app
+- Task templates
 
 If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
 Don't forget to give the project a star! Thanks again!
