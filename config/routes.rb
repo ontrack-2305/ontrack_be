@@ -6,9 +6,6 @@ Rails.application.routes.draw do
 
   root "welcome#index"
 
-  namespace :api do
-    namespace :v0 do
-      
-    end
-  end
+  get 'api/v1/holidays', to: "api/v1/holidays#index"
+
 end
