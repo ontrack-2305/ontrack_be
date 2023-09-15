@@ -59,4 +59,4 @@ workflows:
           filters:
             branches:
               only:
-                - circleci_setup
+                - main
