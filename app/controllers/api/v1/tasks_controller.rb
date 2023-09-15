@@ -4,7 +4,7 @@ class Api::V1::TasksController < ApplicationController
   end
 
   def index
-    render json: TaskSerializer.new(Task.all)
+    render json: TaskSerializer.new(Task.where(user_id: params[:user_id]))
   end
 
   def show
