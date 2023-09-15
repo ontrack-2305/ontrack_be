@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_13_161805) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_15_023139) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -18,7 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_13_161805) do
     t.string "name"
     t.integer "category"
     t.boolean "mandatory"
-    t.datetime "event_date"
+    t.string "event_date"
     t.integer "frequency", default: 0
     t.integer "time_needed"
     t.integer "user_id"
