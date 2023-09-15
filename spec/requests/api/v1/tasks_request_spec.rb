@@ -11,13 +11,13 @@ RSpec.describe "Tasks API" do
   end
 
   it "gets a list of all tasks" do
-    get "/api/v1/users/1/tasks"
+    get "/api/v1/users/#{@task_1.user_id}/tasks"
 
     expect(response).to be_successful
     
     tasks = JSON.parse(response.body, symbolize_names: true)
-    
-    expect(tasks[:data].count).to eq(5)
+
+    expect(tasks[:data].count).to eq(1)
     
     tasks[:data].each do |task|
       expect(task).to have_key(:id)
