@@ -1,6 +1,7 @@
 class Api::V1::TasksController < ApplicationController
   def create
-    render json: TaskSerializer.new(Task.create!(task_params)), status: 201
+    TaskSerializer.new(Task.create!(task_params))
+    render json: { message: "'#{Task.last.name}' added!" }, status: 201
   end
 
   def index
@@ -14,13 +15,14 @@ class Api::V1::TasksController < ApplicationController
   def update
     task = Task.find(params[:id])
     task.update!(task_params)
-    render json: TaskSerializer.new(task)
+    render json: { message: "Changes saved!" }
   end
 
   def destroy
     task = Task.find(params[:id])
+    task_name = task.name
     task.destroy!
-    render json: TaskSerializer.new(task), status: 204
+    render json: { message: "'#{task_name}' deleted." },  status: 204
   end
 
 
