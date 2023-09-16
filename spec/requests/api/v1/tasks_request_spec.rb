@@ -112,9 +112,12 @@ RSpec.describe "Tasks API" do
       
       post "/api/v1/users/1/tasks", params: task_params, as: :json
 
-      created_task = Task.last
       expect(response).to be_successful
       expect(response.status).to eq(201)
+
+      created_task = Task.last
+      # require 'pry'; binding.pry
+      expect(JSON.parse(response.body)["message"]).to eq("'#{created_task.name}' added!")
 
       expect(created_task.name).to eq(task_params[:name])
       expect(created_task.category).to eq(task_params[:category])
