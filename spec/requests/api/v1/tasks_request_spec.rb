@@ -119,7 +119,7 @@ RSpec.describe "Tasks API" do
       expect(created_task.name).to eq(task_params[:name])
       expect(created_task.category).to eq(task_params[:category])
       expect(created_task.time_needed).to eq(task_params[:time_needed])
-      expect(created_task.frequency).to eq("one_time")
+      expect(created_task.frequency).to eq("once")
     end
 
     it "does not create a new task and returns status code 400 if invalid params passed" do
