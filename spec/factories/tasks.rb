@@ -22,8 +22,8 @@ FactoryBot.define do
       category { "chore" }
     end
     
-    trait :one_time do
-      frequency { "one_time" }
+    trait :once do
+      frequency { "once" }
     end
     
     trait :daily do
