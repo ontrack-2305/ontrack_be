@@ -91,13 +91,12 @@ RSpec.describe "Tasks API" do
       id = 123123123123
       get "/api/v1/users/:id/tasks/#{id}"
 
-      expect(response.status).to eq(404)
+      expect(response).to have_http_status(404)
       expect{Task.find(id)}.to raise_error(ActiveRecord::RecordNotFound)
 
       data = JSON.parse(response.body, symbolize_names: true)
 
-      expect(data[:errors].first[:status]).to eq("404")
-      expect(data[:errors].first[:title]).to eq("Couldn't find Task with 'id'=123123123123")
+      expect(data[:errors].first[:detail]).to eq("Couldn't find Task with 'id'=123123123123")
     end
   end
 
@@ -132,15 +131,13 @@ RSpec.describe "Tasks API" do
 
       expect{ request }.to_not change(Task, :count)
       expect{ Task.create!(task_params) }.to raise_error(ActiveRecord::RecordInvalid)
+      expect(response).to have_http_status(400)
 
       request
-    
-      expect(response.status).to eq(400)
 
       data = JSON.parse(response.body, symbolize_names: true)
 
-      expect(data[:errors].first[:status]).to eq("400")
-      expect(data[:errors].first[:title]).to eq("Validation failed: Name can't be blank")
+      expect(data[:errors].first[:detail]).to eq("Validation failed: Name can't be blank")
     end
   end
 
@@ -168,12 +165,11 @@ RSpec.describe "Tasks API" do
       expect(task.name).to_not eq("")
       expect(task.name).to eq(previous_name)
       expect{ task.update!(task_params) }.to raise_error(ActiveRecord::RecordInvalid)
-      expect(response.status).to eq(400)
+      expect(response).to have_http_status(400)
 
       data = JSON.parse(response.body, symbolize_names: true)
 
-      expect(data[:errors].first[:status]).to eq("400")
-      expect(data[:errors].first[:title]).to eq("Validation failed: Name can't be blank")
+      expect(data[:errors].first[:detail]).to eq("Validation failed: Name can't be blank")
     end
 
     it "does not update a task and returns status code 404 if invalid id passed" do
@@ -189,9 +185,7 @@ RSpec.describe "Tasks API" do
 
       data = JSON.parse(response.body, symbolize_names: true)
 
-      expect(data[:errors]).to be_an(Array)
-      expect(data[:errors].first[:status]).to eq("404")
-      expect(data[:errors].first[:title]).to eq("Couldn't find Task with 'id'=123123123123")
+      expect(data[:errors].first[:detail]).to eq("Couldn't find Task with 'id'=123123123123")
     end
   end
 
@@ -216,9 +210,7 @@ RSpec.describe "Tasks API" do
   
       data = JSON.parse(response.body, symbolize_names: true)
   
-      expect(data[:errors]).to be_an(Array)
-      expect(data[:errors].first[:status]).to eq("404")
-      expect(data[:errors].first[:title]).to eq("Couldn't find Task with 'id'=123123123123")
+      expect(data[:errors].first[:detail]).to eq("Couldn't find Task with 'id'=123123123123")
     end
   end
 end
