@@ -281,10 +281,10 @@ RSpec.describe "Tasks API" do
     it "will get the tasks for the day" do
       user1_tasks = FactoryBot.create_list(:task, 20, user_id: 1)
       user2_tasks = FactoryBot.create_list(:task, 20, user_id: 2)
-      get "/api/v1/users/1/daily_tasks", params: {mood: "good"}
+      get "/api/v1/users/1/daily_tasks", params: {mood: "bad"}
       expect(response).to be_successful
       tasks = JSON.parse(response.body, symbolize_names: true)
-      
+      require 'pry'; binding.pry
       tasks[:data].each do |task|
         expect(task).to have_key(:id)
         expect(task[:id]).to be_a(String)

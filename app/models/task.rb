@@ -24,9 +24,10 @@ class Task < ApplicationRecord
   def self.tasks_by_category(user_id)
     viable_tasks = Task.viable_tasks(user_id)
     tasks_by_category = {
-      rest_tasks: viable_tasks.select { |task| task.category == "rest" },
-      hobby_tasks: viable_tasks.select { |task| task.category == "hobby" },
-      chore_tasks: viable_tasks.select { |task| task.category == "chore" }
+      mandatory_tasks: viable_tasks.select { |task| task.mandatory == true },
+      rest_tasks: viable_tasks.select { |task| task.category == "rest" && task.mandatory != true},
+      hobby_tasks: viable_tasks.select { |task| task.category == "hobby" && task.mandatory != true},
+      chore_tasks: viable_tasks.select { |task| task.category == "chore" && task.mandatory != true}
     }
     tasks_by_category
   end
@@ -34,55 +35,54 @@ class Task < ApplicationRecord
   def self.good_day_tasks(user_id)
     tasks_by_category = Task.tasks_by_category(user_id)
     tasks_for_day = []
-    total_task_time = 0
-    while total_task_time < 500
-      chore_task_1 = tasks_by_category[:chore_tasks].sample
-      chore_task_2 = tasks_by_category[:chore_tasks].sample
-      hobby_task_1 = tasks_by_category[:hobby_tasks].sample
-      restful_task_1 = tasks_by_category[:rest_tasks].sample
-      total_task_time += chore_task_1.time_needed
+    tasks_for_day << tasks_by_category[:mandatory_tasks]
+    while tasks_by_category[:chore_tasks].any?
+      chore_task_1 = tasks_by_category[:chore_tasks].shift
       tasks_for_day << chore_task_1
-      total_task_time += chore_task_2.time_needed
-      tasks_for_day << chore_task_2
-      total_task_time += hobby_task_1.time_needed
+      hobby_task_1 = tasks_by_category[:hobby_tasks].shift
+      tasks_for_day << hobby_task_1 if tasks_by_category[:hobby_tasks].any?
+      restful_task_1 = tasks_by_category[:rest_tasks].shift
+      tasks_for_day << restful_task_1 if tasks_by_category[:rest_tasks].any?
+    end
+    while tasks_by_category[:hobby_tasks].any?
+      hobby_task_1 = tasks_by_category[:hobby_tasks].shift
       tasks_for_day << hobby_task_1
-      total_task_time += restful_task_1.time_needed
+      restful_task_1 = tasks_by_category[:rest_tasks].shift
+      tasks_for_day << restful_task_1 if tasks_by_category[:rest_tasks].any?
+    end
+    while tasks_by_category[:rest_tasks].any?
+      restful_task_1 = tasks_by_category[:rest_tasks].shift
       tasks_for_day << restful_task_1
     end
-    tasks_for_day
+    tasks_for_day.flatten
   end
 
   def self.meh_day_tasks(user_id)
     tasks_by_category = Task.tasks_by_category(user_id)
     tasks_for_day = []
-    total_task_time = 0
-    while total_task_time < 400
-      chore_task_1 = tasks_by_category[:chore_tasks].sample
-      hobby_task_1 = tasks_by_category[:hobby_tasks].sample
-      restful_task_1 = tasks_by_category[:rest_tasks].sample
-      total_task_time += chore_task_1.time_needed
-      tasks_for_day << chore_task_1
-      total_task_time += hobby_task_1.time_needed
+    tasks_for_day << tasks_by_category[:mandatory_tasks]
+    while tasks_by_category[:hobby_tasks].any?
+      hobby_task_1 = tasks_by_category[:hobby_tasks].shift
       tasks_for_day << hobby_task_1
-      total_task_time += restful_task_1.time_needed
+      restful_task_1 = tasks_by_category[:rest_tasks].shift
+      tasks_for_day << restful_task_1 if tasks_by_category[:rest_tasks].any?
+    end
+    while tasks_by_category[:rest_tasks].any?
+      restful_task_1 = tasks_by_category[:rest_tasks].shift
       tasks_for_day << restful_task_1
     end
-    tasks_for_day
+    tasks_for_day.flatten
   end
 
   def self.bad_day_tasks(user_id)
     tasks_by_category = Task.tasks_by_category(user_id)
     tasks_for_day = []
-    total_task_time = 0
-    while total_task_time < 300
-      hobby_task_1 = tasks_by_category[:hobby_tasks].sample
-      restful_task_1 = tasks_by_category[:rest_tasks].sample
-      total_task_time += hobby_task_1.time_needed
-      tasks_for_day << hobby_task_1
-      total_task_time += restful_task_1.time_needed
+    tasks_for_day << tasks_by_category[:mandatory_tasks]
+    while tasks_by_category[:rest_tasks].any?
+      restful_task_1 = tasks_by_category[:rest_tasks].shift
       tasks_for_day << restful_task_1
     end
-    tasks_for_day
+    tasks_for_day.flatten
   end
 
   def self.get_tasks_for_mood(mood, user_id)
@@ -95,9 +95,6 @@ class Task < ApplicationRecord
     end
     tasks
   end
-  # should annual events and holidays come from google calendar api?
-  # skip just pushes task to end of daily task array?
-  # Mood is an indicator of how many bonus tasks to complete in a day 
 
   def self.filter_by(params)
     tasks = Task.all
