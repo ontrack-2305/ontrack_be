@@ -208,7 +208,7 @@ RSpec.describe "Tasks API" do
       task = user1_tasks.first
       expect{Task.find(task.id)}.to_not raise_error(ActiveRecord::RecordNotFound)
 
-      patch "/api/v1/users/#{task.user_id}/tasks/#{task.id}?completed=true"
+      patch "/api/v1/users/#{task.user_id}/tasks/#{task.id}", params: {completed: true}
       expect{Task.find(task.id)}.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
@@ -244,10 +244,38 @@ RSpec.describe "Tasks API" do
     it "will get the tasks for the day" do
       user1_tasks = FactoryBot.create_list(:task, 20, user_id: 1)
       user2_tasks = FactoryBot.create_list(:task, 20, user_id: 2)
-
       get "/api/v1/users/1/daily_tasks", params: {mood: "good"}
+      expect(response).to be_successful
+      tasks = JSON.parse(response.body, symbolize_names: true)
       
-      require 'pry'; binding.pry
+      tasks[:data].each do |task|
+        expect(task).to have_key(:id)
+        expect(task[:id]).to be_a(String)
+
+        expect(task[:attributes]).to have_key(:name)
+        expect(task[:attributes][:name]).to be_a(String)
+
+        expect(task[:attributes]).to have_key(:category)
+        expect(task[:attributes][:category]).to be_a(String)
+
+        expect(task[:attributes]).to have_key(:mandatory)
+        expect(task[:attributes][:mandatory]).to be_in([true, false])
+
+        expect(task[:attributes]).to have_key(:event_date)
+        expect(task[:attributes][:event_date]).to be_a(String)
+
+        expect(task[:attributes]).to have_key(:frequency)
+        expect(task[:attributes][:frequency]).to be_a(String)
+
+        expect(task[:attributes]).to have_key(:time_needed)
+        expect(task[:attributes][:time_needed]).to be_a(Integer)
+
+        expect(task[:attributes]).to have_key(:user_id)
+        expect(task[:attributes][:user_id]).to be_a(Integer)
+
+        expect(task[:attributes]).to have_key(:notes)
+        expect(task[:attributes][:notes]).to be_a(String)
       end
+    end
   end
 end
