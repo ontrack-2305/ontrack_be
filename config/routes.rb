@@ -14,4 +14,5 @@ Rails.application.routes.draw do
   delete 'api/v1/users/:id/tasks/:id', to: 'api/v1/tasks#destroy'
 
 
+  get "api/v1/users/:user_id/daily_tasks", to: "api/v1/tasks#daily_tasks"
 end

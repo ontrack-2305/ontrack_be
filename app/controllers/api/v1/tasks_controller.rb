@@ -31,6 +31,10 @@ class Api::V1::TasksController < ApplicationController
     render json: TaskSerializer.new(task), status: 204
   end
 
+  def daily_tasks
+    tasks = Task.get_tasks_for_mood(params[:mood], params[:user_id])
+    render json: TaskSerializer.new(tasks)
+  end
 
   private
   def task_params

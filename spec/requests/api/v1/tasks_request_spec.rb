@@ -198,7 +198,7 @@ RSpec.describe "Tasks API" do
       id = @task_1.id
       expect(@task_1.completed).to eq(nil)
 
-      patch "/api/v1/users/#{@task_1.user_id}/tasks/#{id}?completed=true"
+      patch "/api/v1/users/#{@task_1.user_id}/tasks/#{id}", params: {completed: true}
       @task_1.reload
       expect(@task_1.completed).to_not eq(nil)
     end
@@ -238,5 +238,16 @@ RSpec.describe "Tasks API" do
       expect(data[:errors].first[:status]).to eq("404")
       expect(data[:errors].first[:title]).to eq("Couldn't find Task with 'id'=123123123123")
     end
+  end
+
+  describe "get daily_tasks" do
+    it "will get the tasks for the day" do
+      user1_tasks = FactoryBot.create_list(:task, 20, user_id: 1)
+      user2_tasks = FactoryBot.create_list(:task, 20, user_id: 2)
+
+      get "/api/v1/users/1/daily_tasks", params: {mood: "good"}
+      
+      require 'pry'; binding.pry
+      end
   end
 end
