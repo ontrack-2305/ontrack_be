@@ -162,6 +162,7 @@ RSpec.describe "Tasks API" do
       expect(response.status).to eq(201)
 
       created_task = Task.last
+
       expect(JSON.parse(response.body)["message"]).to eq("'#{created_task.name}' added!")
 
       expect(created_task.name).to eq(task_params[:name])
