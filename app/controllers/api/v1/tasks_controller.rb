@@ -1,10 +1,15 @@
 class Api::V1::TasksController < ApplicationController
   def create
-    render json: TaskSerializer.new(Task.create!(task_params)), status: 201
+    TaskSerializer.new(Task.create!(task_params))
+    render json: { message: "'#{Task.last.name}' added!" }, status: 201
   end
 
   def index
-    render json: TaskSerializer.new(Task.all)
+    if TasksFacade.filter_check(params).nil?
+      render json: TaskSerializer.new(Task.where(user_id: params[:user_id]))
+    else
+      render json: TasksFacade.filter_check(params)
+    end
   end
 
   def show
@@ -15,20 +20,18 @@ class Api::V1::TasksController < ApplicationController
     if params[:completed] == "true"
       task = Task.find(params[:id])
       task.update!(completed: Time.now)
-      task.destroy! if task.frequency == "one_time"
-      # may need to add the method for getting daily_tasks endpoint here
-      # or refresh page and get daily_tasks endpoint again without the completed task
     else !params[:completed]
       task = Task.find(params[:id])
       task.update!(task_params)
     end
-    render json: TaskSerializer.new(task)
+    render json: { message: "Changes saved!" }
   end
 
   def destroy
     task = Task.find(params[:id])
+    task_name = task.name
     task.destroy!
-    render json: TaskSerializer.new(task), status: 204
+    render json: { message: "'#{task_name}' deleted." }
   end
 
   def daily_tasks

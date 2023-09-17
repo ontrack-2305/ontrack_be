@@ -10,42 +10,89 @@ RSpec.describe "Tasks API" do
     @task_5 = Task.all[4]
   end
 
-  it "gets a list of all tasks" do
-    get "/api/v1/users/1/tasks"
+  describe "task index" do
+    it "returns a list of all the user's tasks" do
+      get "/api/v1/users/#{@task_1.user_id}/tasks"
 
-    expect(response).to be_successful
-    
-    tasks = JSON.parse(response.body, symbolize_names: true)
-    
-    expect(tasks[:data].count).to eq(5)
-    
-    tasks[:data].each do |task|
-      expect(task).to have_key(:id)
-      expect(task[:id]).to be_a(String)
+      expect(response).to be_successful
+      
+      tasks = JSON.parse(response.body, symbolize_names: true)
 
-      expect(task[:attributes]).to have_key(:name)
-      expect(task[:attributes][:name]).to be_a(String)
+      expect(tasks[:data].count).to eq(1)
+      
+      tasks[:data].each do |task|
+        expect(task).to have_key(:id)
+        expect(task[:id]).to be_a(String)
 
-      expect(task[:attributes]).to have_key(:category)
-      expect(task[:attributes][:category]).to be_a(String)
+        expect(task[:attributes]).to have_key(:name)
+        expect(task[:attributes][:name]).to be_a(String)
 
-      expect(task[:attributes]).to have_key(:mandatory)
-      expect(task[:attributes][:mandatory]).to be_in([true, false])
+        expect(task[:attributes]).to have_key(:category)
+        expect(task[:attributes][:category]).to be_a(String)
 
-      expect(task[:attributes]).to have_key(:event_date)
-      expect(task[:attributes][:event_date]).to be_a(String)
+        expect(task[:attributes]).to have_key(:mandatory)
+        expect(task[:attributes][:mandatory]).to be_in([true, false])
 
-      expect(task[:attributes]).to have_key(:frequency)
-      expect(task[:attributes][:frequency]).to be_a(String)
+        expect(task[:attributes]).to have_key(:event_date)
+        expect(task[:attributes][:event_date]).to be_a(String)
 
-      expect(task[:attributes]).to have_key(:time_needed)
-      expect(task[:attributes][:time_needed]).to be_a(Integer)
+        expect(task[:attributes]).to have_key(:frequency)
+        expect(task[:attributes][:frequency]).to be_a(String)
 
-      expect(task[:attributes]).to have_key(:user_id)
-      expect(task[:attributes][:user_id]).to be_a(Integer)
+        expect(task[:attributes]).to have_key(:time_needed)
+        expect(task[:attributes][:time_needed]).to be_a(Integer)
 
-      expect(task[:attributes]).to have_key(:notes)
-      expect(task[:attributes][:notes]).to be_a(String)
+        expect(task[:attributes]).to have_key(:user_id)
+        expect(task[:attributes][:user_id]).to be_a(Integer)
+
+        expect(task[:attributes]).to have_key(:notes)
+        expect(task[:attributes][:notes]).to be_a(String)
+      end
+    end
+
+    describe "index page filter" do
+      before do
+        @t1 = Task.create({ "name": "wash dishes", "category": "chore", "time_needed": 20, "user_id": 523, "mandatory": "true" })
+        @t2 = Task.create({ "name": "vacuum", "category": "chore", "time_needed": 30, "user_id": 523, "frequency": "weekly" })
+        @t3 = Task.create({ "name": "walk dog", "category": "rest", "time_needed": 20, "user_id": 523, "mandatory": true, "frequency": "daily" })
+        @t4 = Task.create({ "name": "paint", "category": "hobby", "time_needed": 120, "user_id": 523, "mandatory": true, "frequency": "weekly" })
+      end
+
+      it "filters for mandatory tasks" do
+        get "/api/v1/users/523/tasks", params: {mandatory: true}
+        expect(response).to be_successful
+        
+        tasks = JSON.parse(response.body, symbolize_names: true)
+        expect(tasks[:data].count).to eq(3)
+        expect(tasks[:data][0][:attributes][:name]).to eq("wash dishes")
+        expect(tasks[:data][1][:attributes][:name]).to eq("walk dog")
+        expect(tasks[:data][2][:attributes][:name]).to eq("paint")
+      end
+
+      it "filters by category" do
+        get "/api/v1/users/523/tasks", params: {category: "chore"}
+        expect(response).to be_successful
+
+        tasks = JSON.parse(response.body, symbolize_names: true)
+        expect(tasks[:data].count).to eq(2)
+        expect(tasks[:data][0][:attributes][:name]).to eq("wash dishes")
+        expect(tasks[:data][1][:attributes][:name]).to eq("vacuum")
+        
+        get "/api/v1/users/523/tasks", params: {category: "hobby"}
+        tasks = JSON.parse(response.body, symbolize_names: true)
+        expect(tasks[:data].count).to eq(1)
+        expect(tasks[:data][0][:attributes][:name]).to eq("paint")
+      end
+
+      it "filters for mandatory tasks" do
+        get "/api/v1/users/523/tasks", params: {frequency: "weekly"}
+        expect(response).to be_successful
+
+        tasks = JSON.parse(response.body, symbolize_names: true)
+        expect(tasks[:data].count).to eq(2)
+        expect(tasks[:data][0][:attributes][:name]).to eq("vacuum")
+        expect(tasks[:data][1][:attributes][:name]).to eq("paint")
+      end
     end
   end
 
@@ -91,13 +138,12 @@ RSpec.describe "Tasks API" do
       id = 123123123123
       get "/api/v1/users/:id/tasks/#{id}"
 
-      expect(response.status).to eq(404)
+      expect(response).to have_http_status(404)
       expect{Task.find(id)}.to raise_error(ActiveRecord::RecordNotFound)
 
       data = JSON.parse(response.body, symbolize_names: true)
 
-      expect(data[:errors].first[:status]).to eq("404")
-      expect(data[:errors].first[:title]).to eq("Couldn't find Task with 'id'=123123123123")
+      expect(data[:errors].first[:detail]).to eq("Couldn't find Task with 'id'=123123123123")
     end
   end
 
@@ -112,14 +158,17 @@ RSpec.describe "Tasks API" do
       
       post "/api/v1/users/1/tasks", params: task_params, as: :json
 
-      created_task = Task.last
       expect(response).to be_successful
       expect(response.status).to eq(201)
+
+      created_task = Task.last
+
+      expect(JSON.parse(response.body)["message"]).to eq("'#{created_task.name}' added!")
 
       expect(created_task.name).to eq(task_params[:name])
       expect(created_task.category).to eq(task_params[:category])
       expect(created_task.time_needed).to eq(task_params[:time_needed])
-      expect(created_task.frequency).to eq("one_time")
+      expect(created_task.frequency).to eq("once")
     end
 
     it "does not create a new task and returns status code 400 if invalid params passed" do
@@ -132,15 +181,13 @@ RSpec.describe "Tasks API" do
 
       expect{ request }.to_not change(Task, :count)
       expect{ Task.create!(task_params) }.to raise_error(ActiveRecord::RecordInvalid)
+      expect(response).to have_http_status(400)
 
       request
-    
-      expect(response.status).to eq(400)
 
       data = JSON.parse(response.body, symbolize_names: true)
 
-      expect(data[:errors].first[:status]).to eq("400")
-      expect(data[:errors].first[:title]).to eq("Validation failed: Name can't be blank")
+      expect(data[:errors].first[:detail]).to eq("Validation failed: Name can't be blank")
     end
   end
 
@@ -168,12 +215,11 @@ RSpec.describe "Tasks API" do
       expect(task.name).to_not eq("")
       expect(task.name).to eq(previous_name)
       expect{ task.update!(task_params) }.to raise_error(ActiveRecord::RecordInvalid)
-      expect(response.status).to eq(400)
+      expect(response).to have_http_status(400)
 
       data = JSON.parse(response.body, symbolize_names: true)
 
-      expect(data[:errors].first[:status]).to eq("400")
-      expect(data[:errors].first[:title]).to eq("Validation failed: Name can't be blank")
+      expect(data[:errors].first[:detail]).to eq("Validation failed: Name can't be blank")
     end
 
     it "does not update a task and returns status code 404 if invalid id passed" do
@@ -189,9 +235,7 @@ RSpec.describe "Tasks API" do
 
       data = JSON.parse(response.body, symbolize_names: true)
 
-      expect(data[:errors]).to be_an(Array)
-      expect(data[:errors].first[:status]).to eq("404")
-      expect(data[:errors].first[:title]).to eq("Couldn't find Task with 'id'=123123123123")
+      expect(data[:errors].first[:detail]).to eq("Couldn't find Task with 'id'=123123123123")
     end
 
     it "updates a completed task" do
@@ -234,9 +278,7 @@ RSpec.describe "Tasks API" do
   
       data = JSON.parse(response.body, symbolize_names: true)
   
-      expect(data[:errors]).to be_an(Array)
-      expect(data[:errors].first[:status]).to eq("404")
-      expect(data[:errors].first[:title]).to eq("Couldn't find Task with 'id'=123123123123")
+      expect(data[:errors].first[:detail]).to eq("Couldn't find Task with 'id'=123123123123")
     end
   end
 

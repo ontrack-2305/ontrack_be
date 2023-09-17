@@ -1,13 +1,12 @@
 class Task < ApplicationRecord
   validates_presence_of :name, :category, :time_needed, :user_id
-
   enum category: { rest: 0, hobby: 1, chore: 2 }
-  enum frequency: { one_time: 0, daily: 1, weekly: 2, monthly: 3, annual: 4 }
+  enum frequency: { once: 0, daily: 1, weekly: 2, monthly: 3, annual: 4 }
 
   def self.viable_tasks(user_id)
     user_tasks = Task.all.where(user_id: user_id)
     viable_tasks = []
-    one_time_tasks = user_tasks.where(frequency: "one_time")
+    one_time_tasks = user_tasks.where(frequency: "once")
     daily_tasks = user_tasks.where(frequency: "daily")
     weekly_tasks = user_tasks.where(frequency: "weekly")
     monthly_tasks = user_tasks.where(frequency: "monthly")
@@ -21,8 +20,6 @@ class Task < ApplicationRecord
     viable_tasks = viable_tasks.flatten
     viable_tasks
   end
-
-
 
   def self.tasks_by_category(user_id)
     viable_tasks = Task.viable_tasks(user_id)
