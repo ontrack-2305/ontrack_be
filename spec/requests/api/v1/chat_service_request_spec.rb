@@ -16,14 +16,14 @@ RSpec.describe "Chat Service API", :vcr do
         get "/api/v1/chat_service", params: { task: "" }
         expect(response.status).to eq(400)
         parsed_response = JSON.parse(response.body)
-        expect(parsed_response).to eq({"errors"=>[{"status"=>"400", "title"=>"No task provided to breakdown"}]})
+        expect(parsed_response).to eq({"errors"=>[{"detail"=>"No task provided to breakdown"}]})
       end
 
       it "returns error message if there is no task param" do
         get "/api/v1/chat_service"
         expect(response.status).to eq(400)
         parsed_response = JSON.parse(response.body)
-        expect(parsed_response).to eq({"errors"=>[{"status"=>"400", "title"=>"No task provided to breakdown"}]})
+        expect(parsed_response).to eq("errors" => [{"detail"=>"No task provided to breakdown"}])
       end
     end
   end

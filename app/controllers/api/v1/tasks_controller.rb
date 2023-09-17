@@ -22,7 +22,7 @@ class Api::V1::TasksController < ApplicationController
     task = Task.find(params[:id])
     task_name = task.name
     task.destroy!
-    render json: { message: "'#{task_name}' deleted." },  status: 204
+    render json: { message: "'#{task_name}' deleted." }
   end
 
 
