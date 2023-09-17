@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   get '/api/v1/chat_service', to: 'api/v1/breakdowns#show'
   get 'api/v1/holidays', to: "api/v1/holidays#index"
+  get "api/v1/users/:user_id/daily_tasks", to: "api/v1/tasks#daily_tasks"
 
   get 'api/v1/users/:user_id/tasks', to: 'api/v1/tasks#index'
   post 'api/v1/users/:user_id/tasks', to: 'api/v1/tasks#create'

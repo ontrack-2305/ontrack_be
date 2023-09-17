@@ -17,8 +17,13 @@ class Api::V1::TasksController < ApplicationController
   end
 
   def update
-    task = Task.find(params[:id])
-    task.update!(task_params)
+    if params[:completed] == "true"
+      task = Task.find(params[:id])
+      task.update!(completed: Time.now)
+    else !params[:completed]
+      task = Task.find(params[:id])
+      task.update!(task_params)
+    end
     render json: { message: "Changes saved!" }
   end
 
@@ -29,6 +34,10 @@ class Api::V1::TasksController < ApplicationController
     render json: { message: "'#{task_name}' deleted." }
   end
 
+  def daily_tasks
+    tasks = Task.get_tasks_for_mood(params[:mood], params[:user_id])
+    render json: TaskSerializer.new(tasks)
+  end
 
   private
   def task_params
