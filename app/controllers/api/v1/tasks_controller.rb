@@ -20,7 +20,7 @@ class Api::V1::TasksController < ApplicationController
   def destroy
     task = Task.find(params[:id])
     task.destroy!
-    render json: TaskSerializer.new(task), status: 204
+    render json: TaskSerializer.new(task)
   end
 
 
