@@ -195,12 +195,12 @@ RSpec.describe "Tasks API" do
     end
 
     it "updates a completed task" do
-      id = @task_1.id
-      expect(@task_1.completed).to eq(nil)
+      task = create(:task, frequency: "weekly")
+      expect(task.completed).to eq(nil)
 
-      patch "/api/v1/users/#{@task_1.user_id}/tasks/#{id}", params: {completed: true}
-      @task_1.reload
-      expect(@task_1.completed).to_not eq(nil)
+      patch "/api/v1/users/#{task.user_id}/tasks/#{task.id}", params: {completed: true}
+      task.reload
+      expect(task.completed).to_not eq(nil)
     end
 
     it "deletes a task if completed and frequency is one_time" do
