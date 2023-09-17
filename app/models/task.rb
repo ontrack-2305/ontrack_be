@@ -5,7 +5,8 @@ class Task < ApplicationRecord
   enum frequency: { one_time: 0, daily: 1, weekly: 2, monthly: 3, annual: 4 }
 
   def self.breakdown_tasks(user_id)
-    @user_tasks = Task.all.where(user_id: user_id)
+    @user_tasks = Task.all.where(user_id: user_id) #Task.viable_tasks(user_id) will replace this line of code, 
+    # and @viable_tasks will replace @user_tasks in the following 3 lines of code
     @restful_tasks = @user_tasks.where(category: "rest")
     @hobby_tasks = @user_tasks.where(category: "hobby")
     @chore_tasks = @user_tasks.where(category: "chore")
@@ -68,15 +69,31 @@ class Task < ApplicationRecord
   # build out a def viable_task helper method that checks frequency against when it was last completed,
   # this will require a migration to add a completed with a date_time stamp
   #  viable_tasks = []
-  #  one_time_tasks = user_tasks.where(frequency: one_time)
-  #  daily_tasks = user_tasks.where(frequency: daily)
-  #  weekly_tasks = user_tasks.where(frequency: weekly)
-  #  monthly_tasks = user_tasks.where(frequency: monthly)
-  #  annual_tasks = user_tasks.where(frequency: annual)
-  #  viable_tasks << weekly_tasks.where(completion: nil)
-  #  viable_tasks << weekly_tasks.where(:completion < Time.now - 7)
+  #  one_time_tasks = user_tasks.where(frequency: "one_time")
+  #  daily_tasks = user_tasks.where(frequency: "daily")
+  #  weekly_tasks = user_tasks.where(frequency: "weekly")
+  #  monthly_tasks = user_tasks.where(frequency: "monthly")
+  #  annual_tasks = user_tasks.where(frequency: "annual")
 
+  #  viable_tasks << daily_tasks.where(completion: nil)
+
+  #  viable_tasks << daily_tasks.where("completion < ?", Time.now - 1.days)
+
+  #  viable_tasks << weekly_tasks.where("completion < ?", Time.now - 7.days)
+
+  #  viable_tasks << monthly_tasks.where("completion < ?", Time.now - 1.month)
+
+  #  viable_tasks << annual_tasks.where("completion < ?", Time.now - 1.year)
+
+  # incorporate a clause that states if event_date.day == Time.now.day || event_date == nil then shovel into viable task array
+
+  # To store time of completion, create a request endpoint for task completion 
+  # that checks if the completion param is there then adds Time.now to the completion column
 
 
   # should annual events and holidays come from google calendar api?
+  # skip just pushes task to end of daily task array?
+
+  # Mood is an indicator of how many bonus tasks to complete in a day 
+
 end

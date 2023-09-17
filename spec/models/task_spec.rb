@@ -19,11 +19,6 @@ RSpec.describe Task, type: :model do
       user2_tasks = FactoryBot.create_list(:task, 20, user_id: 2)
 
       Task.good_day_tasks(1)
-      # break day into 12 hours, 2 hour break midday
-      # two chunks of tasks totalling 5 hours each
-      # 2 chores 1 hobby 1 rest
-
-      # create an empty array for objects and an empty array for task time_needed. Add tasks to algorithm until time_needed = 5 hours
     end
   end
 end

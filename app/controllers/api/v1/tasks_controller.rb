@@ -12,6 +12,7 @@ class Api::V1::TasksController < ApplicationController
   end
 
   def update
+    # add conditional to check for completed param
     task = Task.find(params[:id])
     task.update!(task_params)
     render json: TaskSerializer.new(task)
