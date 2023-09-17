@@ -5,10 +5,10 @@ class Api::V1::TasksController < ApplicationController
   end
 
   def index
-    if TasksFacade.filter_check(params).nil?
-      render json: TaskSerializer.new(Task.where(user_id: params[:user_id]))
+    if params[:search_params]
+      render json: TaskSerializer.new(Task.filter_by(params[:search_params]))
     else
-      render json: TasksFacade.filter_check(params)
+      render json: TaskSerializer.new(Task.where(user_id: params[:user_id]))
     end
   end
 

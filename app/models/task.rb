@@ -97,6 +97,13 @@ class Task < ApplicationRecord
   end
   # should annual events and holidays come from google calendar api?
   # skip just pushes task to end of daily task array?
-
   # Mood is an indicator of how many bonus tasks to complete in a day 
+
+  def self.filter_by(params)
+    tasks = Task.all
+    tasks = tasks.where(mandatory: params[:mandatory]) if params[:mandatory]
+    tasks = tasks.where(category: params[:category]) if params[:category]
+    tasks = tasks.where(frequency: params[:frequency]) if params[:frequency]
+    tasks
+  end    
 end
