@@ -284,7 +284,6 @@ RSpec.describe "Tasks API" do
       get "/api/v1/users/1/daily_tasks", params: {mood: "bad"}
       expect(response).to be_successful
       tasks = JSON.parse(response.body, symbolize_names: true)
-      require 'pry'; binding.pry
       tasks[:data].each do |task|
         expect(task).to have_key(:id)
         expect(task[:id]).to be_a(String)
