@@ -12,9 +12,16 @@ class Api::V1::TasksController < ApplicationController
   end
 
   def update
-    # add conditional to check for completed param
-    task = Task.find(params[:id])
-    task.update!(task_params)
+    if params[:completed] == "true"
+      task = Task.find(params[:id])
+      task.update!(completed: Time.now)
+      task.destroy! if task.frequency == "one_time"
+      # may need to add the method for getting daily_tasks endpoint here
+      # or refresh page and get daily_tasks endpoint again without the completed task
+    else !params[:completed]
+      task = Task.find(params[:id])
+      task.update!(task_params)
+    end
     render json: TaskSerializer.new(task)
   end
 

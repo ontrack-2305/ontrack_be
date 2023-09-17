@@ -193,6 +193,24 @@ RSpec.describe "Tasks API" do
       expect(data[:errors].first[:status]).to eq("404")
       expect(data[:errors].first[:title]).to eq("Couldn't find Task with 'id'=123123123123")
     end
+
+    it "updates a completed task" do
+      id = @task_1.id
+      expect(@task_1.completed).to eq(nil)
+
+      patch "/api/v1/users/#{@task_1.user_id}/tasks/#{id}?completed=true"
+      @task_1.reload
+      expect(@task_1.completed).to_not eq(nil)
+    end
+
+    it "deletes a task if completed and frequency is one_time" do
+      user1_tasks = FactoryBot.create_list(:task, 1, user_id: 1, frequency: "one_time")
+      task = user1_tasks.first
+      expect{Task.find(task.id)}.to_not raise_error(ActiveRecord::RecordNotFound)
+
+      patch "/api/v1/users/#{task.user_id}/tasks/#{task.id}?completed=true"
+      expect{Task.find(task.id)}.to raise_error(ActiveRecord::RecordNotFound)
+    end
   end
 
   describe "delete a task" do

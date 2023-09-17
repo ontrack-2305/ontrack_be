@@ -32,7 +32,6 @@ RSpec.describe Task, type: :model do
       user1_tasks = FactoryBot.create_list(:task, 1, user_id: 1, completed: Time.now - 6.months, frequency: "annual")
       user1_tasks = FactoryBot.create_list(:task, 1, user_id: 1, completed: Time.now - 2.years, frequency: "annual")
       user2_tasks = FactoryBot.create_list(:task, 10, user_id: 2)
-      Task.viable_tasks(1)
     end
   end
 end
