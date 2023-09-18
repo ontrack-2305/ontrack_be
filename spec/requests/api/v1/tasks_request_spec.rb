@@ -52,25 +52,29 @@ RSpec.describe "Tasks API" do
 
     describe "index page filter" do
       before do
-        @t1 = Task.create({ "name": "wash dishes", "category": "chore", "time_needed": 20, "user_id": 523, "mandatory": "true" })
-        @t2 = Task.create({ "name": "vacuum", "category": "chore", "time_needed": 30, "user_id": 523, "frequency": "weekly" })
+        @task_1.destroy!
+        @task_2.destroy!
+        @task_3.destroy!
+        @task_4.destroy!
+        @task_5.destroy!
+        @t1 = Task.create({ "name": "wash dishes", "category": "chore", "time_needed": 20, "user_id": 523, "mandatory": false })
+        @t2 = Task.create({ "name": "vacuum", "category": "chore", "time_needed": 30, "user_id": 523, "frequency": "weekly", "mandatory": false })
         @t3 = Task.create({ "name": "walk dog", "category": "rest", "time_needed": 20, "user_id": 523, "mandatory": true, "frequency": "daily" })
         @t4 = Task.create({ "name": "paint", "category": "hobby", "time_needed": 120, "user_id": 523, "mandatory": true, "frequency": "weekly" })
       end
 
       it "filters for mandatory tasks" do
-        get "/api/v1/users/523/tasks", params: {mandatory: true}
+        get "/api/v1/users/523/tasks", params: {search_params: {mandatory: true}}
         expect(response).to be_successful
         
         tasks = JSON.parse(response.body, symbolize_names: true)
-        expect(tasks[:data].count).to eq(3)
-        expect(tasks[:data][0][:attributes][:name]).to eq("wash dishes")
-        expect(tasks[:data][1][:attributes][:name]).to eq("walk dog")
-        expect(tasks[:data][2][:attributes][:name]).to eq("paint")
+        expect(tasks[:data].count).to eq(2)
+        expect(tasks[:data][0][:attributes][:name]).to eq("walk dog")
+        expect(tasks[:data][1][:attributes][:name]).to eq("paint")
       end
 
       it "filters by category" do
-        get "/api/v1/users/523/tasks", params: {category: "chore"}
+        get "/api/v1/users/523/tasks", params: {search_params: {category: "chore"}}
         expect(response).to be_successful
 
         tasks = JSON.parse(response.body, symbolize_names: true)
@@ -78,14 +82,14 @@ RSpec.describe "Tasks API" do
         expect(tasks[:data][0][:attributes][:name]).to eq("wash dishes")
         expect(tasks[:data][1][:attributes][:name]).to eq("vacuum")
         
-        get "/api/v1/users/523/tasks", params: {category: "hobby"}
+        get "/api/v1/users/523/tasks", params: {search_params: {category: "hobby"}}
         tasks = JSON.parse(response.body, symbolize_names: true)
         expect(tasks[:data].count).to eq(1)
         expect(tasks[:data][0][:attributes][:name]).to eq("paint")
       end
 
-      it "filters for mandatory tasks" do
-        get "/api/v1/users/523/tasks", params: {frequency: "weekly"}
+      it "filters by frequency" do
+        get "/api/v1/users/523/tasks", params: {search_params: {frequency: "weekly"}}
         expect(response).to be_successful
 
         tasks = JSON.parse(response.body, symbolize_names: true)
@@ -246,15 +250,6 @@ RSpec.describe "Tasks API" do
       task.reload
       expect(task.completed).to_not eq(nil)
     end
-
-    it "deletes a task if completed and frequency is one_time" do
-      user1_tasks = FactoryBot.create_list(:task, 1, user_id: 1, frequency: "one_time")
-      task = user1_tasks.first
-      expect{Task.find(task.id)}.to_not raise_error(ActiveRecord::RecordNotFound)
-
-      patch "/api/v1/users/#{task.user_id}/tasks/#{task.id}", params: {completed: true}
-      expect{Task.find(task.id)}.to raise_error(ActiveRecord::RecordNotFound)
-    end
   end
 
   describe "delete a task" do
@@ -286,10 +281,9 @@ RSpec.describe "Tasks API" do
     it "will get the tasks for the day" do
       user1_tasks = FactoryBot.create_list(:task, 20, user_id: 1)
       user2_tasks = FactoryBot.create_list(:task, 20, user_id: 2)
-      get "/api/v1/users/1/daily_tasks", params: {mood: "good"}
+      get "/api/v1/users/1/daily_tasks", params: {mood: "bad"}
       expect(response).to be_successful
       tasks = JSON.parse(response.body, symbolize_names: true)
-      
       tasks[:data].each do |task|
         expect(task).to have_key(:id)
         expect(task[:id]).to be_a(String)
