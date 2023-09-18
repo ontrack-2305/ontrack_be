@@ -13,4 +13,6 @@ Rails.application.routes.draw do
   get 'api/v1/users/:user_id/tasks/:id', to: 'api/v1/tasks#show'
   patch 'api/v1/users/:user_id/tasks/:id', to: 'api/v1/tasks#update'
   delete 'api/v1/users/:user_id/tasks/:id', to: 'api/v1/tasks#destroy'
+
+  post 'api/v1/users/authenticate', to: 'api/v1/users#authenticate'
 end
