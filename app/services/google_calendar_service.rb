@@ -1,5 +1,4 @@
 class GoogleCalendarService
-  attr_reader :access_token
 
   def initialize(user)
     @user = user
