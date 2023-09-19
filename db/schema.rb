@@ -27,5 +27,4 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_17_042752) do
     t.datetime "updated_at", null: false
     t.datetime "completed"
   end
-
 end
