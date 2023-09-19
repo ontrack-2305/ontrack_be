@@ -19,8 +19,11 @@ class Api::V1::TasksController < ApplicationController
   def update
     if params[:completed] == "true"
       task = Task.find(params[:id])
-      task.update!(completed: Time.now)
-    else !params[:completed] # && !params[:skipped]
+      task.update!(completed: Time.now, skipped: false)
+    elsif params[:skipped] == "true"
+      task = Task.find(params[:id])
+      task.update!(skipped: true)
+    else !params[:completed] && !params[:skipped]
       task = Task.find(params[:id])
       task.update!(task_params)
     end

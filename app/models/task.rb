@@ -24,10 +24,11 @@ class Task < ApplicationRecord
   def self.tasks_by_category(user_id)
     viable_tasks = Task.viable_tasks(user_id)
     tasks_by_category = {
-      mandatory_tasks: viable_tasks.select { |task| task.mandatory == true },
-      rest_tasks: viable_tasks.select { |task| task.category == "rest" && task.mandatory != true},
-      hobby_tasks: viable_tasks.select { |task| task.category == "hobby" && task.mandatory != true},
-      chore_tasks: viable_tasks.select { |task| task.category == "chore" && task.mandatory != true}
+      mandatory_tasks: viable_tasks.select { |task| task.mandatory == true && task.skipped != true },
+      rest_tasks: viable_tasks.select { |task| task.category == "rest" && task.mandatory != true && task.skipped != true},
+      hobby_tasks: viable_tasks.select { |task| task.category == "hobby" && task.mandatory != true && task.skipped != true},
+      chore_tasks: viable_tasks.select { |task| task.category == "chore" && task.mandatory != true && task.skipped != true},
+      skipped_tasks: viable_tasks.select { |task| task.skipped == true}
     }
     tasks_by_category
   end
@@ -54,6 +55,7 @@ class Task < ApplicationRecord
       restful_task_1 = tasks_by_category[:rest_tasks].shift
       tasks_for_day << restful_task_1
     end
+    tasks_for_day << tasks_by_category[:skipped_tasks]
     tasks_for_day.flatten
   end
 
@@ -71,6 +73,7 @@ class Task < ApplicationRecord
       restful_task_1 = tasks_by_category[:rest_tasks].shift
       tasks_for_day << restful_task_1
     end
+    tasks_for_day << tasks_by_category[:skipped_tasks]
     tasks_for_day.flatten
   end
 
@@ -82,6 +85,7 @@ class Task < ApplicationRecord
       restful_task_1 = tasks_by_category[:rest_tasks].shift
       tasks_for_day << restful_task_1
     end
+    tasks_for_day << tasks_by_category[:skipped_tasks]
     tasks_for_day.flatten
   end
 
@@ -101,6 +105,7 @@ class Task < ApplicationRecord
     tasks = tasks.where(mandatory: params[:mandatory]) if params[:mandatory]
     tasks = tasks.where(category: params[:category]) if params[:category]
     tasks = tasks.where(frequency: params[:frequency]) if params[:frequency]
+    # tasks = tasks.where(skipped: params[:skipped]) if params[:skipped] easy filter to implement if user wants to search for skipped
     tasks
   end    
 end
