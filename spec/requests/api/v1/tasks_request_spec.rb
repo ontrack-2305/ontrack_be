@@ -57,6 +57,7 @@ RSpec.describe "Tasks API" do
         @task_3.destroy!
         @task_4.destroy!
         @task_5.destroy!
+
         @t1 = Task.create({ "name": "wash dishes", "category": "chore", "time_needed": 20, "user_id": 523, "mandatory": false })
         @t2 = Task.create({ "name": "vacuum", "category": "chore", "time_needed": 30, "user_id": 523, "frequency": "weekly", "mandatory": false })
         @t3 = Task.create({ "name": "walk dog", "category": "rest", "time_needed": 20, "user_id": 523, "mandatory": true, "frequency": "daily" })
