@@ -11,6 +11,5 @@ class CalendarEventsFacade
       end
     end
     upcoming_events
-    require 'pry'; binding.pry
   end
 end
