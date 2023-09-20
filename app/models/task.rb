@@ -101,11 +101,10 @@ class Task < ApplicationRecord
   end
 
   def self.filter_by(params)
-    tasks = Task.all
-    tasks = tasks.where(mandatory: params[:mandatory]) if params[:mandatory]
-    tasks = tasks.where(category: params[:category]) if params[:category]
-    tasks = tasks.where(frequency: params[:frequency]) if params[:frequency]
-    # tasks = tasks.where(skipped: params[:skipped]) if params[:skipped] easy filter to implement if user wants to search for skipped
+    tasks = Task.where(user_id: params[:user_id])
+    tasks = tasks.where(mandatory: params[:search_params][:mandatory]) if params[:search_params][:mandatory]
+    tasks = tasks.where(category: params[:search_params][:category]) if params[:search_params][:category]
+    tasks = tasks.where(frequency: params[:search_params][:frequency]) if params[:search_params][:frequency]
     tasks
   end    
 end

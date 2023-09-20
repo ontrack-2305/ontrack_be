@@ -6,7 +6,7 @@ class Api::V1::TasksController < ApplicationController
 
   def index
     if params[:search_params]
-      render json: TaskSerializer.new(Task.filter_by(params[:search_params]))
+      render json: TaskSerializer.new(Task.filter_by(params))
     else
       render json: TaskSerializer.new(Task.where(user_id: params[:user_id]))
     end
