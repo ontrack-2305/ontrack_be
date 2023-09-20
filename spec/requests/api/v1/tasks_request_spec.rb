@@ -242,13 +242,24 @@ RSpec.describe "Tasks API" do
       expect(data[:errors].first[:detail]).to eq("Couldn't find Task with 'id'=123123123123")
     end
 
-    it "updates a completed task" do
-      task = create(:task, frequency: "weekly")
+    it "updates a completed task and sets skipped to false" do
+      task = create(:task, frequency: "weekly", skipped: true)
       expect(task.completed).to eq(nil)
+      expect(task.skipped).to eq(true)
 
       patch "/api/v1/users/#{task.user_id}/tasks/#{task.id}", params: {completed: true}
       task.reload
       expect(task.completed).to_not eq(nil)
+      expect(task.skipped).to eq(false)
+    end
+
+    it "updates a skipped task" do
+      task = create(:task, frequency: "weekly")
+      expect(task.skipped).to eq(false)
+
+      patch "/api/v1/users/#{task.user_id}/tasks/#{task.id}", params: {skipped: true}
+      task.reload
+      expect(task.skipped).to eq(true)
     end
   end
 
@@ -280,8 +291,9 @@ RSpec.describe "Tasks API" do
   describe "get daily_tasks" do
     it "will get the tasks for the day" do
       user1_tasks = FactoryBot.create_list(:task, 20, user_id: 1)
+      user1_tasks = FactoryBot.create_list(:task, 5, user_id: 1, skipped: true)
       user2_tasks = FactoryBot.create_list(:task, 20, user_id: 2)
-      get "/api/v1/users/1/daily_tasks", params: {mood: "bad"}
+      get "/api/v1/users/1/daily_tasks", params: {mood: "good"}
       expect(response).to be_successful
       tasks = JSON.parse(response.body, symbolize_names: true)
       tasks[:data].each do |task|
