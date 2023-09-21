@@ -25,6 +25,8 @@ class Task < ApplicationRecord
     if event_date != nil
       event_date = DateTime.parse(self.event_date) 
       event_date.day == Time.now.day && event_date.month == Time.now.month && event_date.year == Time.now.year
+    else
+      false
     end
   end
 
