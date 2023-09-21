@@ -158,7 +158,8 @@ RSpec.describe "Tasks API" do
         "name": "Fold Laundry",
         "category": "chore",
         "time_needed": 20,
-        "user_id": 523
+        "user_id": 523,
+        "frequency": "once"
       })
       
       post "/api/v1/users/1/tasks", params: task_params, as: :json
