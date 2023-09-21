@@ -1,6 +1,7 @@
 class Api::V1::TasksController < ApplicationController
   def create
-    TaskSerializer.new(Task.create!(task_params))
+    task =  Task.new(name: params[:name], mandatory: params[:mandatory], time_needed: params[:time_needed], category: params[:category], image: params[:image])
+    task.save!
     render json: { message: "'#{Task.last.name}' added!" }, status: 201
   end
 
