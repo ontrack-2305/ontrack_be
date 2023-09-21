@@ -28,7 +28,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 14 Sep 2023 05:31:42 GMT
+      - Thu, 21 Sep 2023 04:50:37 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -44,7 +44,7 @@ http_interactions:
       Openai-Organization:
       - user-jofcuhhpybxdeoxnabokahf8
       Openai-Processing-Ms:
-      - '2592'
+      - '2914'
       Openai-Version:
       - '2020-10-01'
       Strict-Transport-Security:
@@ -62,38 +62,38 @@ http_interactions:
       X-Ratelimit-Reset-Tokens:
       - 132ms
       X-Request-Id:
-      - 745be3a14649d02774f94cbdf8e94870
+      - 1de5a54f90d06bab57a8fb3c38987333
       Cf-Cache-Status:
       - DYNAMIC
       Server:
       - cloudflare
       Cf-Ray:
-      - 80663eb4c92b15ae-SJC
+      - 809fb0279ce09694-SJC
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
       encoding: ASCII-8BIT
       string: |
         {
-          "id": "chatcmpl-7yZExkGUzmDE30DXXjmnyYk3Sgoxh",
+          "id": "chatcmpl-815w2F2NElCNR1udHXAHLYxUmXa20",
           "object": "chat.completion",
-          "created": 1694669499,
+          "created": 1695271834,
           "model": "gpt-3.5-turbo-0613",
           "choices": [
             {
               "index": 0,
               "message": {
                 "role": "assistant",
-                "content": "1. Sort laundry by color and fabric type.\n2. Start the washing machine with appropriate settings and detergent.\n3. Transfer clothes to dryer or hang them to air dry.\n4. Fold and organize laundry by category.\n5. Put away folded laundry in their designated spots."
+                "content": "1. Sort laundry into categories (e.g., whites, colors, delicates). \n2. Check garment labels for any special care instructions. \n3. Wash each category separately according to care instructions. \n4. Dry clothes based on fabric requirements (air-dry or machine dry). \n5. Fold or hang clothes neatly and put them away."
               },
               "finish_reason": "stop"
             }
           ],
           "usage": {
             "prompt_tokens": 79,
-            "completion_tokens": 55,
-            "total_tokens": 134
+            "completion_tokens": 71,
+            "total_tokens": 150
           }
         }
-  recorded_at: Thu, 14 Sep 2023 05:31:42 GMT
+  recorded_at: Thu, 21 Sep 2023 04:50:37 GMT
 recorded_with: VCR 6.2.0

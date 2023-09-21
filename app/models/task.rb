@@ -36,7 +36,6 @@ class Task < ApplicationRecord
       chore_tasks: viable_tasks.select { |task| task.category == "chore" && task.mandatory != true && task.skipped != true && task.same_date? != true},
       skipped_tasks: viable_tasks.select { |task| task.skipped == true}
     }
-    require 'pry'; binding.pry
     tasks_by_category
   end
 
