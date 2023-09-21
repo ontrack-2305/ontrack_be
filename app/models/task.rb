@@ -22,8 +22,10 @@ class Task < ApplicationRecord
   end
 
   def same_date?
-    event_date = DateTime.parse(self.event_date)
-    event_date.day == Time.now.day && event_date.month == Time.now.month && event_date.year == Time.now.year
+    if event_date != nil
+      event_date = DateTime.parse(self.event_date) 
+      event_date.day == Time.now.day && event_date.month == Time.now.month && event_date.year == Time.now.year
+    end
   end
 
   def self.tasks_by_category(user_id)
