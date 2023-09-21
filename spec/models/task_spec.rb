@@ -34,4 +34,14 @@ RSpec.describe Task, type: :model do
       user2_tasks = FactoryBot.create_list(:task, 10, user_id: 2)
     end
   end
+
+  describe "instance methods" do
+    it "returns tasks for the day" do
+      user1_tasks = FactoryBot.create_list(:task, 20, user_id: 1)
+      user1_tasks = FactoryBot.create_list(:task, 5, user_id: 1, skipped: true)
+      user1_tasks = FactoryBot.create_list(:task, 1, user_id: 1, event_date: Time.now)
+      user2_tasks = FactoryBot.create_list(:task, 20, user_id: 2)
+      Task.tasks_by_category(1)
+    end
+  end
 end

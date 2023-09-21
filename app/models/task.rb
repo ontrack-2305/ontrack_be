@@ -21,13 +21,19 @@ class Task < ApplicationRecord
     viable_tasks
   end
 
+  def same_date?
+    event_date = DateTime.parse(self.event_date)
+    event_date.day == Time.now.day && event_date.month == Time.now.month && event_date.year == Time.now.year
+  end
+
   def self.tasks_by_category(user_id)
     viable_tasks = Task.viable_tasks(user_id)
     tasks_by_category = {
-      mandatory_tasks: viable_tasks.select { |task| task.mandatory == true && task.skipped != true },
-      rest_tasks: viable_tasks.select { |task| task.category == "rest" && task.mandatory != true && task.skipped != true},
-      hobby_tasks: viable_tasks.select { |task| task.category == "hobby" && task.mandatory != true && task.skipped != true},
-      chore_tasks: viable_tasks.select { |task| task.category == "chore" && task.mandatory != true && task.skipped != true},
+      dated_tasks: viable_tasks.select { |task| task.same_date? && task.skipped != true },
+      mandatory_tasks: viable_tasks.select { |task| task.mandatory == true && task.skipped != true && task.same_date? != true},
+      rest_tasks: viable_tasks.select { |task| task.category == "rest" && task.mandatory != true && task.skipped != true && task.same_date? != true},
+      hobby_tasks: viable_tasks.select { |task| task.category == "hobby" && task.mandatory != true && task.skipped != true && task.same_date? != true},
+      chore_tasks: viable_tasks.select { |task| task.category == "chore" && task.mandatory != true && task.skipped != true && task.same_date? != true},
       skipped_tasks: viable_tasks.select { |task| task.skipped == true}
     }
     tasks_by_category
@@ -36,6 +42,7 @@ class Task < ApplicationRecord
   def self.good_day_tasks(user_id)
     tasks_by_category = Task.tasks_by_category(user_id)
     tasks_for_day = []
+    tasks_for_day << tasks_by_category[:dated_tasks]
     tasks_for_day << tasks_by_category[:mandatory_tasks]
     while tasks_by_category[:chore_tasks].any?
       chore_task_1 = tasks_by_category[:chore_tasks].shift
@@ -62,6 +69,7 @@ class Task < ApplicationRecord
   def self.meh_day_tasks(user_id)
     tasks_by_category = Task.tasks_by_category(user_id)
     tasks_for_day = []
+    tasks_for_day << tasks_by_category[:dated_tasks]
     tasks_for_day << tasks_by_category[:mandatory_tasks]
     while tasks_by_category[:hobby_tasks].any?
       hobby_task_1 = tasks_by_category[:hobby_tasks].shift
@@ -80,6 +88,7 @@ class Task < ApplicationRecord
   def self.bad_day_tasks(user_id)
     tasks_by_category = Task.tasks_by_category(user_id)
     tasks_for_day = []
+    tasks_for_day << tasks_by_category[:dated_tasks]
     tasks_for_day << tasks_by_category[:mandatory_tasks]
     while tasks_by_category[:rest_tasks].any?
       restful_task_1 = tasks_by_category[:rest_tasks].shift
