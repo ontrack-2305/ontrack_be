@@ -220,7 +220,7 @@ create_table "tasks", force: :cascade do |t|
   t.datetime "updated_at", null: false
   t.datetime "completed"
   t.boolean "skipped", default: false
-  t.string "image"
+  t.string "image_url"
 ```
 
 ## Contributing  [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/ontrack-2305/ontrack_be/issues)
@@ -254,6 +254,23 @@ Holidays API: "https://date.nager.atApi/v3/NextPublicHolidays/US"
 - We understand that factors such as internet connectivity and device compatibility can impact access. We are actively working to minimize these barriers to ensure a wider reach. By maintaining a web application users can use public access such as libraries to use our product.
 - Given more time, we plan to collaborate closely with our intended users through interviews, surveys, and usability testing to continually improve and tailor the application to their evolving requirements.
 - To prevent misuse of our product, we would like to implement reporting mechanisms and community guidelines. We are committed to maintaining a safe and welcoming environment for all users.
+
+## Security Considerations
+
+While we have taken measures to ensure the security and privacy of user data, it's important to acknowledge potential security issues that may arise. One such issue to be aware of is related to URL manipulation in the backend of our Service-Oriented Architecture (SOA) application.
+
+**URL-Based Task Access:**
+In the current implementation, the task show method in the backend retrieves tasks based on the task ID, regardless of the user ID passed through the URL. While this approach works as expected and efficiently retrieves tasks, it raises a potential security concern.
+
+**Security Implication:**
+Since task IDs are unique, it's unlikely that two users will have tasks with the same ID. However, this design allows anyone with knowledge of the system to manipulate the URL by manually inputting random user IDs and incrementing numbers in the URL until they discover a valid task. This task will then be displayed with the actual user's ID.
+
+**Mitigation Steps:**
+For the Minimum Viable Product (MVP) phase, we have prioritized other development aspects over this issue. However, as we continue to enhance and refine our application, we plan to address this potential security concern by implementing additional access control mechanisms. These mechanisms will ensure that only authorized users can access specific tasks and data.
+
+While we acknowledge this security concern, we are actively working on improving the security of our application to provide a safe and secure user experience. We appreciate your understanding as we continue to enhance the system's security features.
+
+
 ## Authors
 - Artemy Gibson [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white) ](https://github.com/algibson1) [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white) ](https://www.linkedin.com/in/artemy-gibson/)
 - Anna Wiley [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white) ](https://github.com/awiley33) [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white) ](https://www.linkedin.com/in/annawiley/)
