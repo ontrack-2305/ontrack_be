@@ -1,5 +1,6 @@
 class Api::V1::TasksController < ApplicationController
   def create
+    require 'pry'; binding.pry
     TaskSerializer.new(Task.create!(task_params))
     render json: { message: "'#{Task.last.name}' added!" }, status: 201
   end
