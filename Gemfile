@@ -59,4 +59,5 @@ group :test do
   gem "shoulda-matchers"
   gem "webmock"
   gem "vcr"
+  gem "rspec-sidekiq"
 end
