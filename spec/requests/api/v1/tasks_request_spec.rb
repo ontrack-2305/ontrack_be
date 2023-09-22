@@ -313,7 +313,7 @@ RSpec.describe "Tasks API" do
 
       tasks = JSON.parse(response.body, symbolize_names: true)
 
-      expect(tasks[:data].count <= 25).to eq(true)
+      expect(tasks[:data].count).to eq(25)
 
       tasks[:data].each do |task|
         expect(task).to have_key(:id)
@@ -347,7 +347,8 @@ RSpec.describe "Tasks API" do
         expect(task[:attributes][:skipped]).to be_in([true, false])
       end
 
-      expect(tasks[:data].last[:attributes][:skipped]).to eq(true)
+      skipped_tasks = tasks[:data][20..24]
+      expect(skipped_tasks.all? { |task| task[:attributes][:skipped] }).to eq(true)
     end
   end
 end
