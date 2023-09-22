@@ -28,7 +28,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Fri, 15 Sep 2023 03:17:25 GMT
+      - Fri, 22 Sep 2023 03:31:48 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -44,7 +44,7 @@ http_interactions:
       Openai-Organization:
       - user-jofcuhhpybxdeoxnabokahf8
       Openai-Processing-Ms:
-      - '3315'
+      - '2442'
       Openai-Version:
       - '2020-10-01'
       Strict-Transport-Security:
@@ -62,38 +62,38 @@ http_interactions:
       X-Ratelimit-Reset-Tokens:
       - 132ms
       X-Request-Id:
-      - 0de236ded9a2a41d81114842ad9b7328
+      - eb2b6bfa5c049acc910e59f5ebaf8480
       Cf-Cache-Status:
       - DYNAMIC
       Server:
       - cloudflare
       Cf-Ray:
-      - 806db75bcd38236e-SJC
+      - 80a77a15bf7ff8d9-SEA
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
       encoding: ASCII-8BIT
       string: |
         {
-          "id": "chatcmpl-7ytcYudqpQnqeTtJ5cOI5WkxmgOnh",
+          "id": "chatcmpl-81RBKEcAomszyBKxfmZawwojhdwim",
           "object": "chat.completion",
-          "created": 1694747842,
+          "created": 1695353506,
           "model": "gpt-3.5-turbo-0613",
           "choices": [
             {
               "index": 0,
               "message": {
                 "role": "assistant",
-                "content": "1. Sort laundry into piles: whites, colors, darks.\n2. Check care labels for washing instructions.\n3. Start with the whites: load into washing machine, add detergent, set the appropriate cycle, and start.\n4. While whites are washing, move on to colors and repeat the washing process.\n5. Finally, wash the darks following the same steps."
+                "content": "1. Sort laundry by color and fabric type.\n2. Pre-treat any stains or heavily soiled items.\n3. Load the washing machine and add detergent.\n4. Select appropriate settings and start the wash cycle.\n5. Transfer clean laundry to dryer or air dry."
               },
               "finish_reason": "stop"
             }
           ],
           "usage": {
             "prompt_tokens": 79,
-            "completion_tokens": 76,
-            "total_tokens": 155
+            "completion_tokens": 55,
+            "total_tokens": 134
           }
         }
-  recorded_at: Fri, 15 Sep 2023 03:17:25 GMT
+  recorded_at: Fri, 22 Sep 2023 03:31:48 GMT
 recorded_with: VCR 6.2.0
