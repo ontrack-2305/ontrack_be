@@ -52,22 +52,22 @@ class Task < ApplicationRecord
       chore_task_1 = tasks_by_category[:chore_tasks].shift
       tasks_for_day << chore_task_1
       hobby_task_1 = tasks_by_category[:hobby_tasks].shift
-      tasks_for_day << hobby_task_1 if tasks_by_category[:hobby_tasks].any?
+      tasks_for_day << hobby_task_1
       restful_task_1 = tasks_by_category[:rest_tasks].shift
-      tasks_for_day << restful_task_1 if tasks_by_category[:rest_tasks].any?
+      tasks_for_day << restful_task_1
     end
     while tasks_by_category[:hobby_tasks].any?
       hobby_task_1 = tasks_by_category[:hobby_tasks].shift
       tasks_for_day << hobby_task_1
       restful_task_1 = tasks_by_category[:rest_tasks].shift
-      tasks_for_day << restful_task_1 if tasks_by_category[:rest_tasks].any?
+      tasks_for_day << restful_task_1
     end
     while tasks_by_category[:rest_tasks].any?
       restful_task_1 = tasks_by_category[:rest_tasks].shift
       tasks_for_day << restful_task_1
     end
     tasks_for_day << tasks_by_category[:skipped_tasks]
-    tasks_for_day.flatten
+    tasks_for_day.flatten.compact
   end
 
   def self.meh_day_tasks(user_id)
@@ -79,14 +79,14 @@ class Task < ApplicationRecord
       hobby_task_1 = tasks_by_category[:hobby_tasks].shift
       tasks_for_day << hobby_task_1
       restful_task_1 = tasks_by_category[:rest_tasks].shift
-      tasks_for_day << restful_task_1 if tasks_by_category[:rest_tasks].any?
+      tasks_for_day << restful_task_1
     end
     while tasks_by_category[:rest_tasks].any?
       restful_task_1 = tasks_by_category[:rest_tasks].shift
       tasks_for_day << restful_task_1
     end
     tasks_for_day << tasks_by_category[:skipped_tasks]
-    tasks_for_day.flatten
+    tasks_for_day.flatten.compact
   end
 
   def self.bad_day_tasks(user_id)
@@ -99,7 +99,7 @@ class Task < ApplicationRecord
       tasks_for_day << restful_task_1
     end
     tasks_for_day << tasks_by_category[:skipped_tasks]
-    tasks_for_day.flatten
+    tasks_for_day.flatten.compact
   end
 
   def self.get_tasks_for_mood(mood, user_id)
