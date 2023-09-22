@@ -54,7 +54,7 @@ RSpec.describe Task, type: :model do
     end
 
     it "returns only mandatory and rest tasks on bad days" do
-      create_list(:task, 15, category: "rest", user_id: 1)
+      create_list(:task, 15, category: "rest", mandatory: false, user_id: 1)
       create_list(:task, 5, mandatory: true, user_id: 1)
       create_list(:task, 10, category: "hobby", mandatory: false, user_id: 1)
       create_list(:task, 5, category: "chore", mandatory: false, user_id: 1)
@@ -68,7 +68,7 @@ RSpec.describe Task, type: :model do
     end
 
     it "returns mandatory, hobby, and rest tasks on meh days" do
-      create_list(:task, 15, category: "rest", user_id: 1, frequency: "daily")
+      create_list(:task, 15, category: "rest", mandatory: false, user_id: 1, frequency: "daily")
       create_list(:task, 5, mandatory: true, user_id: 1, frequency: "daily")
       create_list(:task, 10, category: "hobby", mandatory: false, user_id: 1, frequency: "daily")
       create_list(:task, 5, category: "chore", mandatory: false, user_id: 1, frequency: "daily")
@@ -83,7 +83,7 @@ RSpec.describe Task, type: :model do
     end
 
     it "returns mandatory, hobby, rest, and chore tasks on good days" do
-      create_list(:task, 15, category: "rest", user_id: 1, frequency: "daily")
+      create_list(:task, 15, category: "rest", mandatory: false, user_id: 1, frequency: "daily")
       create_list(:task, 5, mandatory: true, user_id: 1, frequency: "daily")
       create_list(:task, 10, category: "hobby", mandatory: false, user_id: 1, frequency: "daily")
       create_list(:task, 5, category: "chore", mandatory: false, user_id: 1, frequency: "daily")
