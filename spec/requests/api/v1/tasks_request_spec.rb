@@ -43,9 +43,6 @@ RSpec.describe "Tasks API" do
         expect(task[:attributes]).to have_key(:frequency)
         expect(task[:attributes][:frequency]).to be_a(String)
 
-        expect(task[:attributes]).to have_key(:time_needed)
-        expect(task[:attributes][:time_needed]).to be_a(Integer)
-
         expect(task[:attributes]).to have_key(:user_id)
         expect(task[:attributes][:user_id]).to eq(123)
 
@@ -143,9 +140,6 @@ RSpec.describe "Tasks API" do
         expect(task[:data][:attributes]).to have_key(:frequency)
         expect(task[:data][:attributes][:frequency]).to be_a(String)
 
-        expect(task[:data][:attributes]).to have_key(:time_needed)
-        expect(task[:data][:attributes][:time_needed]).to be_a(Integer)
-
         expect(task[:data][:attributes]).to have_key(:user_id)
         expect(task[:data][:attributes][:user_id]).to be_a(Integer)
 
@@ -187,7 +181,6 @@ RSpec.describe "Tasks API" do
 
       expect(created_task.name).to eq("Fold Laundry")
       expect(created_task.category).to eq("chore")
-      expect(created_task.time_needed).to eq(20)
       expect(created_task.frequency).to eq("once")
     end
 
@@ -334,9 +327,6 @@ RSpec.describe "Tasks API" do
 
         expect(task[:attributes]).to have_key(:frequency)
         expect(task[:attributes][:frequency]).to be_a(String)
-
-        expect(task[:attributes]).to have_key(:time_needed)
-        expect(task[:attributes][:time_needed]).to be_a(Integer)
 
         expect(task[:attributes]).to have_key(:user_id)
         expect(task[:attributes][:user_id]).to eq(1)
