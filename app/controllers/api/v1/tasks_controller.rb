@@ -45,6 +45,7 @@ class Api::V1::TasksController < ApplicationController
 
   private
   def task_params
-    params.permit(:name, :category, :mandatory, :event_date, :frequency, :time_needed, :user_id, :notes, :image)
+    params[:image_url] = params[:image]
+    params.permit(:name, :category, :mandatory, :event_date, :frequency, :time_needed, :user_id, :notes, :image_url)
   end
 end
