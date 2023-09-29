@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Fri, 22 Sep 2023 03:13:23 GMT
+      - Fri, 29 Sep 2023 19:45:41 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -31,11 +31,13 @@ http_interactions:
       Cache-Control:
       - max-age=28800
       Cf-Cache-Status:
-      - MISS
+      - HIT
+      Age:
+      - '5'
       Last-Modified:
-      - Fri, 22 Sep 2023 03:13:23 GMT
+      - Fri, 29 Sep 2023 19:45:36 GMT
       Report-To:
-      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=rRTPS1X1POYYLpoHKSTpOIIB3s3H%2BvkNUNQbXwCC%2BPQCyk6SRkMONPnQzf%2BxIyJGSoxA5c12LyGjNAyoyyPmOIfrXxS7UIRyLpXemvhHI3TIN7Maa4oI4%2Ft2%2BSFj6DTe%2FcEnTHcrZ5jYajrJ"}],"group":"cf-nel","max_age":604800}'
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=40b79zNe89nV4723%2B24IpLfxpSpIm8mVcXneBAvcVnklrx435qCDvTo%2F5a3P7gEKoT82BQm2Bop%2B8qHLhAdUgKWJiLEKKFpBqYqanb8a%2BQR4E%2BKX%2Fjqc5fk6W5LJhLrzwLVm7OnNZE484r2%2F"}],"group":"cf-nel","max_age":604800}'
       Nel:
       - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
       Vary:
@@ -43,7 +45,7 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 80a75f268a612808-SEA
+      - 80e6ba573dae8e60-PDX
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
@@ -59,5 +61,5 @@ http_interactions:
         Day","name":"Memorial Day","countryCode":"US","fixed":false,"global":true,"counties":null,"launchYear":null,"types":["Public"]},{"date":"2024-06-19","localName":"Juneteenth","name":"Juneteenth","countryCode":"US","fixed":false,"global":true,"counties":null,"launchYear":2021,"types":["Public"]},{"date":"2024-07-04","localName":"Independence
         Day","name":"Independence Day","countryCode":"US","fixed":false,"global":true,"counties":null,"launchYear":null,"types":["Public"]},{"date":"2024-09-02","localName":"Labor
         Day","name":"Labour Day","countryCode":"US","fixed":false,"global":true,"counties":null,"launchYear":null,"types":["Public"]}]'
-  recorded_at: Fri, 22 Sep 2023 03:13:23 GMT
+  recorded_at: Fri, 29 Sep 2023 19:45:40 GMT
 recorded_with: VCR 6.2.0

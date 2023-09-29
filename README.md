@@ -199,7 +199,7 @@ Error Response:
 {
 errors: [
               {
-                detail: "Validation failed: Name can't be blank, category can't be blank, time needed can't be blank"
+                detail: "Validation failed: Name can't be blank, category can't be blank"
               }
             ]
 }
@@ -228,6 +228,10 @@ Contributions are what make the open source community such an amazing place to l
 
 ## Thoughts for future contributions:
 - Users can register/log in without using a google account
+- Use of time_needed attribute;
+  - Can calculate user's time spent on certain activities and report them after a certain point of time
+  - Ex: "You've spent 80 hours learning guitar this year!"
+  - This attribute currently exists in the Back End schema but is not used in the Front End at this time
 - Upcoming birthday notifications
 - Screen reader friendly
 - Refactor to have all tables on the back end
