@@ -1,7 +1,7 @@
 class Api::V1::TasksController < ApplicationController
   def create
-    task =  Task.new(name: params[:name], mandatory: params[:mandatory], category: params[:category], image_url: params[:image], user_id: params[:user_id], event_date: params[:event_date], frequency: params[:frequency], notes: params[:notes])
-    task.save!  
+    task =  Task.new(task_params)
+    task.save!
     render json: { message: "'#{Task.last.name}' added!" }, status: 201
   end
 
@@ -45,7 +45,6 @@ class Api::V1::TasksController < ApplicationController
 
   private
   def task_params
-    params[:image_url] = params[:image]
     params.permit(:name, :category, :mandatory, :event_date, :frequency, :user_id, :notes, :image_url)
   end
 end
