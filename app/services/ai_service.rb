@@ -34,4 +34,27 @@ class AiService
 
     get_url('/v1/chat/completions', payload)
   end
+
+  def fetch_chat_response(message)
+    payload = {
+      model: "gpt-3.5-turbo", 
+      max_tokens: 100,
+      messages: [
+        {
+          role: "system",
+          content: "You are a helpful assistant."
+        },
+        {
+          role: "user",
+          content: "A user is going to ask for your help to assist in a task. 
+                    Here is their query: #{message}. 
+                    Ensure you complete the response in 100 tokens or less. 
+                    Don't display the amount of tokens used.
+                    Be brief, but comprehensive."
+        }
+      ]
+    }.to_json
+
+    get_url('/v1/chat/completions', payload)
+  end
 end
