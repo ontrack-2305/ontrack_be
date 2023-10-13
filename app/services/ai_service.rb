@@ -35,7 +35,7 @@ class AiService
     get_url('/v1/chat/completions', payload)
   end
 
-  def fetch_chat_response(message)
+  def ai_motivational_message
     payload = {
       model: "gpt-3.5-turbo", 
       max_tokens: 100,
@@ -46,11 +46,10 @@ class AiService
         },
         {
           role: "user",
-          content: "A user is going to ask for your help to assist in a task. 
-                    Here is their query: #{message}. 
-                    Ensure you complete the response in 100 tokens or less. 
+          content: "Please provide a brief motivational message for a user to stay on task and get through their chores.
+                    Ensure you complete the task breakdown in 75 tokens or less. 
                     Don't display the amount of tokens used.
-                    Be brief, but comprehensive."
+                    Be terse but affable."
         }
       ]
     }.to_json
