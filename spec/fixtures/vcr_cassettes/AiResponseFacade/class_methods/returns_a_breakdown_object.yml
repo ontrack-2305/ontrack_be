@@ -28,7 +28,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Fri, 29 Sep 2023 19:45:36 GMT
+      - Sun, 08 Oct 2023 06:25:39 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -44,7 +44,7 @@ http_interactions:
       Openai-Organization:
       - user-jofcuhhpybxdeoxnabokahf8
       Openai-Processing-Ms:
-      - '5288'
+      - '9207'
       Openai-Version:
       - '2020-10-01'
       Strict-Transport-Security:
@@ -56,44 +56,44 @@ http_interactions:
       X-Ratelimit-Remaining-Requests:
       - '3499'
       X-Ratelimit-Remaining-Tokens:
-      - '89800'
+      - '89801'
       X-Ratelimit-Reset-Requests:
       - 17ms
       X-Ratelimit-Reset-Tokens:
       - 132ms
       X-Request-Id:
-      - 4b003f7408a5e1f8460078b5c83712a6
+      - 2682feff7c2c9ec712f3e3f3678fbc40
       Cf-Cache-Status:
       - DYNAMIC
       Server:
       - cloudflare
       Cf-Ray:
-      - 80e6ba160c33c705-SEA
+      - 812c4e936ffa16fb-SJC
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
       encoding: ASCII-8BIT
       string: |
         {
-          "id": "chatcmpl-84DiVok2ZUrw9ZQrzSvvoBfRDSpiU",
+          "id": "chatcmpl-87HWEepmOtYVd4dMMIkhjzu5pGlmX",
           "object": "chat.completion",
-          "created": 1696016731,
+          "created": 1696746330,
           "model": "gpt-3.5-turbo-0613",
           "choices": [
             {
               "index": 0,
               "message": {
                 "role": "assistant",
-                "content": "1. Sort laundry into separate piles (whites, colors, delicates).\n2. Start with the whites: pre-treat stains, load the washing machine, add detergent, and set the cycle.\n3. While whites are washing, repeat step 2 for colors and delicates.\n4. After each load is done, transfer to the dryer or air dry as needed.\n5. Once everything is dry, fold or hang the clothes and put them away."
+                "content": "1. Sort laundry into different piles (lights, darks, delicates).\n2. Check clothing labels for specific washing instructions.\n3. Load the first pile of laundry into the washing machine.\n4. Add laundry detergent and set appropriate wash cycle.\n5. Start the washing machine and wait for the cycle to finish."
               },
               "finish_reason": "stop"
             }
           ],
           "usage": {
             "prompt_tokens": 79,
-            "completion_tokens": 93,
-            "total_tokens": 172
+            "completion_tokens": 64,
+            "total_tokens": 143
           }
         }
-  recorded_at: Fri, 29 Sep 2023 19:45:36 GMT
+  recorded_at: Sun, 08 Oct 2023 06:25:39 GMT
 recorded_with: VCR 6.2.0
