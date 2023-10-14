@@ -4,6 +4,6 @@ class HourlyNotificationWorkerJob
   def perform
     response = AiService.new.ai_motivational_message
     notification_message = response[:choices][0][:message][:content]
-    ActionCable.server.broadcast("chat_channel", message: notification_message)
+    Notification.create(content: notification_message)  
   end
 end
