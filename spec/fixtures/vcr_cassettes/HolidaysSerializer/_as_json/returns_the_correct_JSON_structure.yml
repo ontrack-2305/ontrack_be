@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sun, 08 Oct 2023 06:25:51 GMT
+      - Sat, 14 Oct 2023 18:02:04 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -33,11 +33,11 @@ http_interactions:
       Cf-Cache-Status:
       - HIT
       Age:
-      - '11'
+      - '27965'
       Last-Modified:
-      - Sun, 08 Oct 2023 06:25:40 GMT
+      - Sat, 14 Oct 2023 10:15:59 GMT
       Report-To:
-      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=e04IRXG1qmw7ypJgY37FTLXWXqAvdr%2BkvezS9XKnIkZUhABgRdFU%2FX4im6rQ7SVZtTsKccVIveORQ8BAmZlkQtuTSSHCZXr8Y3btf4FVKa1zA38MgLgqxJS4ychvk3MC%2FyJnyW%2B%2BkzwMv4gQ"}],"group":"cf-nel","max_age":604800}'
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=lNdGwzkyMZuHaPmsv2mF82bMpDVNL3SB5tW6okutP42qSPlEwy7%2BJesBOWzsFhiOV5V1yFtDZ7OjNpAmYlcnrot%2BtpxlA0Cl39dPWPuVV%2FpNHxHg%2BnbS%2FJU3XzeVCJHhfh%2Bl005n5RVKyAQs"}],"group":"cf-nel","max_age":604800}'
       Nel:
       - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
       Vary:
@@ -45,13 +45,12 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 812c4f18c8a6f93d-SJC
+      - 8161bb2f9e559861-SJC
       Alt-Svc:
       - h3=":443"; ma=86400
     body:
       encoding: ASCII-8BIT
-      string: '[{"date":"2023-10-09","localName":"Columbus Day","name":"Columbus Day","countryCode":"US","fixed":false,"global":false,"counties":["US-AL","US-AZ","US-CO","US-CT","US-GA","US-ID","US-IL","US-IN","US-IA","US-KS","US-KY","US-LA","US-ME","US-MD","US-MA","US-MS","US-MO","US-MT","US-NE","US-NH","US-NJ","US-NM","US-NY","US-NC","US-OH","US-OK","US-PA","US-RI","US-SC","US-TN","US-UT","US-VA","US-WV"],"launchYear":null,"types":["Public"]},{"date":"2023-11-10","localName":"Veterans
-        Day","name":"Veterans Day","countryCode":"US","fixed":false,"global":true,"counties":null,"launchYear":null,"types":["Public"]},{"date":"2023-11-23","localName":"Thanksgiving
+      string: '[{"date":"2023-11-10","localName":"Veterans Day","name":"Veterans Day","countryCode":"US","fixed":false,"global":true,"counties":null,"launchYear":null,"types":["Public"]},{"date":"2023-11-23","localName":"Thanksgiving
         Day","name":"Thanksgiving Day","countryCode":"US","fixed":false,"global":true,"counties":null,"launchYear":1863,"types":["Public"]},{"date":"2023-12-25","localName":"Christmas
         Day","name":"Christmas Day","countryCode":"US","fixed":false,"global":true,"counties":null,"launchYear":null,"types":["Public"]},{"date":"2024-01-01","localName":"New
         Year''s Day","name":"New Year''s Day","countryCode":"US","fixed":false,"global":true,"counties":null,"launchYear":null,"types":["Public"]},{"date":"2024-01-15","localName":"Martin
@@ -60,6 +59,7 @@ http_interactions:
         Friday","name":"Good Friday","countryCode":"US","fixed":false,"global":false,"counties":["US-CT","US-DE","US-HI","US-IN","US-KY","US-LA","US-NC","US-ND","US-NJ","US-TN"],"launchYear":null,"types":["Public"]},{"date":"2024-05-27","localName":"Memorial
         Day","name":"Memorial Day","countryCode":"US","fixed":false,"global":true,"counties":null,"launchYear":null,"types":["Public"]},{"date":"2024-06-19","localName":"Juneteenth","name":"Juneteenth","countryCode":"US","fixed":false,"global":true,"counties":null,"launchYear":2021,"types":["Public"]},{"date":"2024-07-04","localName":"Independence
         Day","name":"Independence Day","countryCode":"US","fixed":false,"global":true,"counties":null,"launchYear":null,"types":["Public"]},{"date":"2024-09-02","localName":"Labor
-        Day","name":"Labour Day","countryCode":"US","fixed":false,"global":true,"counties":null,"launchYear":null,"types":["Public"]}]'
-  recorded_at: Sun, 08 Oct 2023 06:25:51 GMT
+        Day","name":"Labour Day","countryCode":"US","fixed":false,"global":true,"counties":null,"launchYear":null,"types":["Public"]},{"date":"2024-10-14","localName":"Columbus
+        Day","name":"Columbus Day","countryCode":"US","fixed":false,"global":false,"counties":["US-AL","US-AZ","US-CO","US-CT","US-GA","US-ID","US-IL","US-IN","US-IA","US-KS","US-KY","US-LA","US-ME","US-MD","US-MA","US-MS","US-MO","US-MT","US-NE","US-NH","US-NJ","US-NM","US-NY","US-NC","US-OH","US-OK","US-PA","US-RI","US-SC","US-TN","US-UT","US-VA","US-WV"],"launchYear":null,"types":["Public"]}]'
+  recorded_at: Sat, 14 Oct 2023 18:02:03 GMT
 recorded_with: VCR 6.2.0
