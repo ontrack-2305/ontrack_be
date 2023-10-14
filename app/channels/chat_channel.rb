@@ -5,14 +5,13 @@ class ChatChannel < ApplicationCable::Channel
 
   def start
     loop do
-      # Check the shared storage for new notifications (e.g., from the database)
-      notification = Notification.last # Replace with your actual query
+      response = AiService.new.ai_motivational_message
+      notification = response[:choices][0][:message][:content]
       if notification
-        # Broadcast the notification to the WebSocket channel
-        ActionCable.server.broadcast("chat_channel", notification.content)
+        ActionCable.server.broadcast("chat_channel", notification)
       end
-
-      sleep 2.minutes # Adjust the interval as needed
+      # sleep 1.hour
+      sleep 2.minutes 
     end
   end
 end

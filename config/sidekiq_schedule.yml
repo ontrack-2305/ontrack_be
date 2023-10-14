@@ -3,8 +3,3 @@ reset_skipped_tasks:
   cron: "0 0 * * *"
   class: "ResetSkippedTasksJob"
   queue: default
-
-hourly_notification_worker:
-  cron: "0 * * * *"
-  class: "HourlyNotificationWorkerJob"
-  queue: default

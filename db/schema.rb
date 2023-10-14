@@ -10,15 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_13_080511) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_20_181441) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "notifications", force: :cascade do |t|
-    t.string "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "tasks", force: :cascade do |t|
     t.string "name"
@@ -34,17 +28,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_13_080511) do
     t.datetime "completed"
     t.boolean "skipped", default: false
     t.string "image_url"
-  end
-
-  create_table "users", force: :cascade do |t|
-    t.string "email"
-    t.string "token"
-    t.string "first_name"
-    t.string "last_name"
-    t.string "provider"
-    t.string "uid"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
 end
