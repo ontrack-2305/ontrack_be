@@ -15,5 +15,4 @@ Rails.application.routes.draw do
   delete 'api/v1/users/:user_id/tasks/:id', to: 'api/v1/tasks#destroy'
   
   mount ActionCable.server => '/cable'
-
 end
