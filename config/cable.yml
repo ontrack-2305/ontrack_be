@@ -10,5 +10,5 @@ production:
   url: <%= ENV.fetch("REDIS_URL") %>
   channel_prefix: ontrack_be_production
   origins:
-    - localhost:5000
+    - http://localhost:5000
     - https://ontrack-fe-4b819560ba35.herokuapp.com/
