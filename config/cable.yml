@@ -11,4 +11,5 @@ production:
   channel_prefix: ontrack_be_production
   origins:
     - http://localhost:5000
-    - https://ontrack-fe-4b819560ba35.herokuapp.com/
+    - https://ontrack-fe-4b819560ba35.herokuapp.com
+    - http://ontrack-fe-4b819560ba35.herokuapp.com
