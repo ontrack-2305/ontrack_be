@@ -3,3 +3,8 @@ reset_skipped_tasks:
   cron: "0 0 * * *"
   class: "ResetSkippedTasksJob"
   queue: default
+
+chat_broadcast:
+  cron: "*/5 * * * *"
+  class: "ChatBroadcastJob"
+  queue: default
