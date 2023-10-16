@@ -48,7 +48,6 @@ Rails.application.configure do
 
   # heighten log level
   config.log_level = :debug
-  config.action_cable.log_level = :debug
 
 
   # Prepend all log lines with the following tags.
