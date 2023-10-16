@@ -1,5 +1,5 @@
-class ChatBroadcastJob < ApplicationJob
-  queue_as :default
+class ChatBroadcastJob
+  include Sidekiq::Job
 
   def perform
     response = AiService.new.ai_motivational_message
