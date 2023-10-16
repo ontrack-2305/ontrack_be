@@ -10,8 +10,7 @@ class ChatChannel < ApplicationCable::Channel
       if notification
         ActionCable.server.broadcast("chat_channel", notification)
       end
-      # sleep 1.hour
-      sleep 10.minutes 
+      sleep 1.hour
     end
   end
 end
