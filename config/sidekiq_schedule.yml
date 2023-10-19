@@ -5,6 +5,6 @@ reset_skipped_tasks:
   queue: default
 
 chat_broadcast:
-  cron: "*/5 * * * *"
+  cron: "0 * * * *"
   class: "ChatBroadcastJob"
   queue: default
