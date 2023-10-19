@@ -63,4 +63,4 @@ workflows:
           filters:
             branches:
               only:
-                - push_notification_refactor
+                - main
