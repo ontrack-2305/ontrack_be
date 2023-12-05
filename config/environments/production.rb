@@ -2,7 +2,7 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-  config.action_cable.url = "wss://ontrack-be-a58c9e421d34.herokuapp.com/cable"
+  config.action_cable.url = "wss://ontrack-be-2305-d5321563a2d4.herokuapp.com/cable"
   config.action_cable.allowed_request_origins = ['http://localhost:5000', 'https://ontrack-fe-4b819560ba35.herokuapp.com']
   # Code is not reloaded between requests.
   config.cache_classes = true
